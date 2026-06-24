@@ -1,0 +1,528 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C18523CFA9C8954B47CC995 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4036A02656B05DBD4FAFAF98 /* APIClient.swift */; };
+		2C843A32FDC046EBECF4124D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */; };
+		911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */; };
+		B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */; };
+		C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */; };
+		D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3144B071E68F342CD9B05 /* DesignTokens.swift */; };
+		DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */; };
+		E1B9CAC022B8AA4B4FC2B26D /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EA9868230857E087C9436 /* AppConstants.swift */; };
+		EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9755E72682009A382F0050 /* APIClientTests.swift */; };
+		F81D5E99A31C00C8C138A2BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4661E6F3BE7E92C9B2F985 /* User.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8C57E3374A2553C2E50540DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CA2173429AFDE72E0636FB62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72020F1B52AB45FF63C7BF48;
+			remoteInfo = Porquilo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		2B4661E6F3BE7E92C9B2F985 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3ED56285FDF57EF6364ECC6C /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		3F298A0BD7EC88E876468316 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		4036A02656B05DBD4FAFAF98 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PorquiloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EA47DD57B12706027466D3A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		6250AB67C83EF7BDBEBE098E /* Porquilo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Porquilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
+		871E3CE2E0AAB3A72E99D0FB /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
+		92AF415AA75C5725B53FEB70 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloApp.swift; sourceTree = "<group>"; };
+		B2F3144B071E68F342CD9B05 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
+		D77EA9868230857E087C9436 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		ED9755E72682009A382F0050 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		FB3D254245C407D3192B7F32 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		014D2FEEDBDD5FAFB278DBB4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4036A02656B05DBD4FAFAF98 /* APIClient.swift */,
+				11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1159443EAE5EAC1675D2FBA7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D77EA9868230857E087C9436 /* AppConstants.swift */,
+				F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */,
+				9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4E62A069EF516AE4B73EA110 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				5EA47DD57B12706027466D3A /* .gitkeep */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		55884E49B09FD1591DC3D75F /* Reports */ = {
+			isa = PBXGroup;
+			children = (
+				FB3D254245C407D3192B7F32 /* .gitkeep */,
+			);
+			path = Reports;
+			sourceTree = "<group>";
+		};
+		67AEA12ED278DC4DC29B00CD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6250AB67C83EF7BDBEBE098E /* Porquilo.app */,
+				4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6D5D84240DC6E25E0AE58021 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				E8A700BD76173C1E78974EAB /* Library */,
+				55884E49B09FD1591DC3D75F /* Reports */,
+				F5EC748B747309C46B78D414 /* Settings */,
+				4E62A069EF516AE4B73EA110 /* Today */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		81AC5D4ECFBC94D72D067781 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				92AF415AA75C5725B53FEB70 /* .gitkeep */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		A512182EF3E15CF55326F59A = {
+			isa = PBXGroup;
+			children = (
+				C0435BD700B1CB0C47AFDF83 /* Porquilo */,
+				B87BD7B5AE052555EA5E08AD /* PorquiloTests */,
+				67AEA12ED278DC4DC29B00CD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0B679745A8839F42C0F0AD0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2B4661E6F3BE7E92C9B2F985 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B87BD7B5AE052555EA5E08AD /* PorquiloTests */ = {
+			isa = PBXGroup;
+			children = (
+				ED9755E72682009A382F0050 /* APIClientTests.swift */,
+				8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */,
+				71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */,
+			);
+			name = PorquiloTests;
+			path = Tests/PorquiloTests;
+			sourceTree = "<group>";
+		};
+		C0435BD700B1CB0C47AFDF83 /* Porquilo */ = {
+			isa = PBXGroup;
+			children = (
+				1159443EAE5EAC1675D2FBA7 /* App */,
+				81AC5D4ECFBC94D72D067781 /* Auth */,
+				E166C2E1F99AEF03D8FD0BEB /* Components */,
+				6D5D84240DC6E25E0AE58021 /* Features */,
+				B0B679745A8839F42C0F0AD0 /* Models */,
+				014D2FEEDBDD5FAFB278DBB4 /* Services */,
+				E2F798E52D3DC5E9E86F412D /* Utilities */,
+			);
+			name = Porquilo;
+			path = Sources/Porquilo;
+			sourceTree = "<group>";
+		};
+		E166C2E1F99AEF03D8FD0BEB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3F298A0BD7EC88E876468316 /* .gitkeep */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E2F798E52D3DC5E9E86F412D /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B2F3144B071E68F342CD9B05 /* DesignTokens.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E8A700BD76173C1E78974EAB /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				871E3CE2E0AAB3A72E99D0FB /* .gitkeep */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		F5EC748B747309C46B78D414 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3ED56285FDF57EF6364ECC6C /* .gitkeep */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		72020F1B52AB45FF63C7BF48 /* Porquilo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D7A94DC334B00DDD5AB2055 /* Build configuration list for PBXNativeTarget "Porquilo" */;
+			buildPhases = (
+				6E773E9804AD6075A91BEA8C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Porquilo;
+			packageProductDependencies = (
+			);
+			productName = Porquilo;
+			productReference = 6250AB67C83EF7BDBEBE098E /* Porquilo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		758BC12819CF1BC8683B4A1D /* PorquiloTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 691F89559A36D7F5F307A23A /* Build configuration list for PBXNativeTarget "PorquiloTests" */;
+			buildPhases = (
+				C53DA38C6C1202B6AE639D62 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A9A90270324C93E8B15E86A5 /* PBXTargetDependency */,
+			);
+			name = PorquiloTests;
+			packageProductDependencies = (
+			);
+			productName = PorquiloTests;
+			productReference = 4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CA2173429AFDE72E0636FB62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					72020F1B52AB45FF63C7BF48 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 907C2B996860BBEE7508D0E6 /* Build configuration list for PBXProject "Porquilo" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A512182EF3E15CF55326F59A;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 67AEA12ED278DC4DC29B00CD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				72020F1B52AB45FF63C7BF48 /* Porquilo */,
+				758BC12819CF1BC8683B4A1D /* PorquiloTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6E773E9804AD6075A91BEA8C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C18523CFA9C8954B47CC995 /* APIClient.swift in Sources */,
+				E1B9CAC022B8AA4B4FC2B26D /* AppConstants.swift in Sources */,
+				2C843A32FDC046EBECF4124D /* AppState.swift in Sources */,
+				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
+				B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */,
+				911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */,
+				F81D5E99A31C00C8C138A2BD /* User.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C53DA38C6C1202B6AE639D62 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */,
+				C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */,
+				DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A9A90270324C93E8B15E86A5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72020F1B52AB45FF63C7BF48 /* Porquilo */;
+			targetProxy = 8C57E3374A2553C2E50540DE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		147E6F56B0D9CD9F9B5F4B67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.porquilo.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		182FA1C72BC3552C4D373C5D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_REQUIRED = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.porquilo.app;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4E5F7AAA106B5CF9C4AA1726 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.porquilo.PorquiloTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Porquilo.app/Porquilo";
+			};
+			name = Debug;
+		};
+		97CF8834F01FD6D57FECACBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A6AED6CAECFE5BF7AF2BCDE9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.porquilo.PorquiloTests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.9;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Porquilo.app/Porquilo";
+			};
+			name = Release;
+		};
+		FA1920CC7103E5E6C8A5F5AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		691F89559A36D7F5F307A23A /* Build configuration list for PBXNativeTarget "PorquiloTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E5F7AAA106B5CF9C4AA1726 /* Debug */,
+				A6AED6CAECFE5BF7AF2BCDE9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		907C2B996860BBEE7508D0E6 /* Build configuration list for PBXProject "Porquilo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				97CF8834F01FD6D57FECACBA /* Debug */,
+				FA1920CC7103E5E6C8A5F5AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9D7A94DC334B00DDD5AB2055 /* Build configuration list for PBXNativeTarget "Porquilo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				147E6F56B0D9CD9F9B5F4B67 /* Debug */,
+				182FA1C72BC3552C4D373C5D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CA2173429AFDE72E0636FB62 /* Project object */;
+}
