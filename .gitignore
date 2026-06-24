@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+
+# Claude
+.claude
+
+# Xcode — user-specific state, never shared
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Build artifacts
+build/
+DerivedData/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Test results (CI uploads these as artifacts; don't commit them)
+*.xcresult
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Fastlane (for when it's added in a later phase)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
