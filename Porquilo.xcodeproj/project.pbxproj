@@ -7,15 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E55265B670AEE66F3EF9026 /* ConnectingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ECDFAA933528909D5A811C /* ConnectingRequest.swift */; };
 		1C18523CFA9C8954B47CC995 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4036A02656B05DBD4FAFAF98 /* APIClient.swift */; };
 		2C843A32FDC046EBECF4124D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */; };
+		373732863CE53F66EF2442A7 /* ManualEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3983A8C8996AB1C7F5827A8 /* ManualEntryView.swift */; };
+		4FA739F28DD977B33624FC03 /* QRCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */; };
+		50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */; };
+		565CA93CA11DF5613CC737DF /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F94647827CBB4941F35984A /* CameraPreviewView.swift */; };
+		7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53147222241CF2D5CFEE495E /* QRPairingPayload.swift */; };
+		87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */; };
+		881AC30F5456D44EC56F1EFF /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09705A7910779DBF3CF02934 /* QRScannerView.swift */; };
 		911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */; };
+		A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */; };
 		B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */; };
 		C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */; };
+		CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5401332ADEB9D9422C6721D /* WelcomeView.swift */; };
 		D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3144B071E68F342CD9B05 /* DesignTokens.swift */; };
 		DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */; };
 		E1B9CAC022B8AA4B4FC2B26D /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EA9868230857E087C9436 /* AppConstants.swift */; };
+		E4F645439EAA76BABDCDCC65 /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0AA51469CA96941A741E9 /* ConnectingView.swift */; };
+		E8C24CBAE490490B60D14E61 /* ManualEntryValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */; };
+		E98C6A0EC40366F5AEA0DB4E /* ManualEntryValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */; };
+		EA3AF8B2175B7FDB45C65553 /* QRPairingPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */; };
+		EAE4BC1E44317C5B7CF2F89A /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */; };
+		EC0D2C9A967087EB58333FE4 /* LogoMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */; };
 		EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9755E72682009A382F0050 /* APIClientTests.swift */; };
+		F144ADF4AF5F63BF014EAD6E /* AuthRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918AEAD092391B9A0C5B926A /* AuthRootView.swift */; };
 		F81D5E99A31C00C8C138A2BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4661E6F3BE7E92C9B2F985 /* User.swift */; };
 /* End PBXBuildFile section */
 
@@ -30,23 +47,40 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09705A7910779DBF3CF02934 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToServerView.swift; sourceTree = "<group>"; };
+		15ECDFAA933528909D5A811C /* ConnectingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingRequest.swift; sourceTree = "<group>"; };
+		27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
 		2B4661E6F3BE7E92C9B2F985 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3ED56285FDF57EF6364ECC6C /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		3F298A0BD7EC88E876468316 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		4036A02656B05DBD4FAFAF98 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PorquiloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		53147222241CF2D5CFEE495E /* QRPairingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayload.swift; sourceTree = "<group>"; };
 		5EA47DD57B12706027466D3A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		6250AB67C83EF7BDBEBE098E /* Porquilo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Porquilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
+		78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionWarningSheet.swift; sourceTree = "<group>"; };
+		7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidation.swift; sourceTree = "<group>"; };
 		871E3CE2E0AAB3A72E99D0FB /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
+		918AEAD092391B9A0C5B926A /* AuthRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRootView.swift; sourceTree = "<group>"; };
 		92AF415AA75C5725B53FEB70 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayloadTests.swift; sourceTree = "<group>"; };
 		9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloApp.swift; sourceTree = "<group>"; };
+		9F94647827CBB4941F35984A /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		A3983A8C8996AB1C7F5827A8 /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
+		AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoMarkView.swift; sourceTree = "<group>"; };
 		B2F3144B071E68F342CD9B05 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
+		B4C0AA51469CA96941A741E9 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
+		C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidationTests.swift; sourceTree = "<group>"; };
+		D5401332ADEB9D9422C6721D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D77EA9868230857E087C9436 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCaptureCoordinator.swift; sourceTree = "<group>"; };
 		ED9755E72682009A382F0050 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
 		FB3D254245C407D3192B7F32 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +144,20 @@
 			isa = PBXGroup;
 			children = (
 				92AF415AA75C5725B53FEB70 /* .gitkeep */,
+				918AEAD092391B9A0C5B926A /* AuthRootView.swift */,
+				27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */,
+				9F94647827CBB4941F35984A /* CameraPreviewView.swift */,
+				15ECDFAA933528909D5A811C /* ConnectingRequest.swift */,
+				B4C0AA51469CA96941A741E9 /* ConnectingView.swift */,
+				14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */,
+				7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */,
+				A3983A8C8996AB1C7F5827A8 /* ManualEntryView.swift */,
+				E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */,
+				F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */,
+				53147222241CF2D5CFEE495E /* QRPairingPayload.swift */,
+				09705A7910779DBF3CF02934 /* QRScannerView.swift */,
+				78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */,
+				D5401332ADEB9D9422C6721D /* WelcomeView.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -137,6 +185,8 @@
 				ED9755E72682009A382F0050 /* APIClientTests.swift */,
 				8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */,
 				71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */,
+				C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */,
+				9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */,
 			);
 			name = PorquiloTests;
 			path = Tests/PorquiloTests;
@@ -161,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				3F298A0BD7EC88E876468316 /* .gitkeep */,
+				AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -269,10 +320,25 @@
 				1C18523CFA9C8954B47CC995 /* APIClient.swift in Sources */,
 				E1B9CAC022B8AA4B4FC2B26D /* AppConstants.swift in Sources */,
 				2C843A32FDC046EBECF4124D /* AppState.swift in Sources */,
+				F144ADF4AF5F63BF014EAD6E /* AuthRootView.swift in Sources */,
+				EAE4BC1E44317C5B7CF2F89A /* AuthScreen.swift in Sources */,
+				565CA93CA11DF5613CC737DF /* CameraPreviewView.swift in Sources */,
+				A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */,
+				0E55265B670AEE66F3EF9026 /* ConnectingRequest.swift in Sources */,
+				E4F645439EAA76BABDCDCC65 /* ConnectingView.swift in Sources */,
 				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
 				B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */,
+				EC0D2C9A967087EB58333FE4 /* LogoMarkView.swift in Sources */,
+				E98C6A0EC40366F5AEA0DB4E /* ManualEntryValidation.swift in Sources */,
+				373732863CE53F66EF2442A7 /* ManualEntryView.swift in Sources */,
 				911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */,
+				4FA739F28DD977B33624FC03 /* QRCaptureCoordinator.swift in Sources */,
+				50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */,
+				7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */,
+				881AC30F5456D44EC56F1EFF /* QRScannerView.swift in Sources */,
 				F81D5E99A31C00C8C138A2BD /* User.swift in Sources */,
+				87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */,
+				CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +349,8 @@
 				EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */,
 				C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */,
 				DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */,
+				E8C24CBAE490490B60D14E61 /* ManualEntryValidationTests.swift in Sources */,
+				EA3AF8B2175B7FDB45C65553 /* QRPairingPayloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +374,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -326,6 +395,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
