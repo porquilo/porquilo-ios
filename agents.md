@@ -70,3 +70,22 @@ All non-2xx responses from the server use this shape:
 ```
 Decoded into `PorquiloAPIError.serverError(code: String, message: String)` in `APIClient`.
 All server calls go through `APIClient.shared` — never construct a `URLRequest` in a view.
+
+---
+
+## QR pairing contract
+
+The web dashboard's pairing QR code encodes a JSON string (not a URL):
+```json
+{"server": "https://nutrition.home.local", "code": "<pairing-code>"}
+```
+The iOS client (`QRScannerView` / `QRPairingPayloadParser`) decodes this, validates `server`
+starts with `http://`/`https://`, and POSTs `{"code": "..."}` to
+`{server}/api/auth/pairing/exchange`.
+
+**Assumption, not yet confirmed against the real server**: expired vs. already-used pairing
+codes are distinguished by two separate error codes — `pairing_code_expired` and
+`pairing_code_already_used` — in the standard error envelope above. Any other error
+(network failure, unrecognized code) is treated as a generic scan failure, not routed to
+the dedicated error screen. If the server's actual codes differ, update the mapping in
+`AuthRootView.startPairingExchange`.
