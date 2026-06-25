@@ -75,6 +75,7 @@ struct QuickLogSearchView: View {
                         .frame(width: 64, alignment: .trailing)
                 }
             }
+            .padding(.horizontal, 16)
         }
         .frame(height: 50)
         .overlay(alignment: .bottom) {
