@@ -34,6 +34,9 @@
 		EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9755E72682009A382F0050 /* APIClientTests.swift */; };
 		F144ADF4AF5F63BF014EAD6E /* AuthRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918AEAD092391B9A0C5B926A /* AuthRootView.swift */; };
 		F81D5E99A31C00C8C138A2BD /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4661E6F3BE7E92C9B2F985 /* User.swift */; };
+		52F044CC923B4DFEA849E15B /* Geist[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = 71DE575527D34CD88D8A8BFB /* Geist[wght].ttf */; };
+		EECDBFA2067E49FB88B03C3D /* GeistMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8A638FF14E64CE58B7C49A0 /* GeistMono[wght].ttf */; };
+		925D8C1DB6404706A32DC240 /* Newsreader-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4CE517B6AE30469CBDF6998A /* Newsreader-VariableFont_opsz,wght.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +85,10 @@
 		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
 		FB3D254245C407D3192B7F32 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
+		71DE575527D34CD88D8A8BFB /* Geist[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geist[wght].ttf"; sourceTree = "<group>"; };
+		A8A638FF14E64CE58B7C49A0 /* GeistMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GeistMono[wght].ttf"; sourceTree = "<group>"; };
+		4CE517B6AE30469CBDF6998A /* Newsreader-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Newsreader-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
+		BF78024B692446B8AD86E52E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -99,9 +106,20 @@
 			children = (
 				D77EA9868230857E087C9436 /* AppConstants.swift */,
 				F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */,
+				BF78024B692446B8AD86E52E /* Info.plist */,
 				9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		FA1E0DD03384410A8C26ECE3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				71DE575527D34CD88D8A8BFB /* Geist[wght].ttf */,
+				A8A638FF14E64CE58B7C49A0 /* GeistMono[wght].ttf */,
+				4CE517B6AE30469CBDF6998A /* Newsreader-VariableFont_opsz,wght.ttf */,
+			);
+			path = Resources/Fonts;
 			sourceTree = "<group>";
 		};
 		4E62A069EF516AE4B73EA110 /* Today */ = {
@@ -200,6 +218,7 @@
 				E166C2E1F99AEF03D8FD0BEB /* Components */,
 				6D5D84240DC6E25E0AE58021 /* Features */,
 				B0B679745A8839F42C0F0AD0 /* Models */,
+				FA1E0DD03384410A8C26ECE3 /* Fonts */,
 				014D2FEEDBDD5FAFB278DBB4 /* Services */,
 				E2F798E52D3DC5E9E86F412D /* Utilities */,
 			);
@@ -248,6 +267,7 @@
 			buildConfigurationList = 9D7A94DC334B00DDD5AB2055 /* Build configuration list for PBXNativeTarget "Porquilo" */;
 			buildPhases = (
 				6E773E9804AD6075A91BEA8C /* Sources */,
+				B9C7AE98B574416D8066FC65 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -312,6 +332,19 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		B9C7AE98B574416D8066FC65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52F044CC923B4DFEA849E15B /* Geist[wght].ttf in Resources */,
+				EECDBFA2067E49FB88B03C3D /* GeistMono[wght].ttf in Resources */,
+				925D8C1DB6404706A32DC240 /* Newsreader-VariableFont_opsz,wght.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6E773E9804AD6075A91BEA8C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -374,6 +407,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -395,6 +429,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
