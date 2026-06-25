@@ -6,6 +6,7 @@ enum PorquiloAPIError: Error, LocalizedError {
     case decodingError(Error)
     case noServerConfigured
     case unauthorized
+    case notFound
 
     var errorDescription: String? {
         switch self {
@@ -19,6 +20,8 @@ enum PorquiloAPIError: Error, LocalizedError {
             return "No server configured."
         case .unauthorized:
             return "Unauthorized."
+        case .notFound:
+            return "Not found."
         }
     }
 }
@@ -31,7 +34,8 @@ extension PorquiloAPIError: Equatable {
         case (.networkError, .networkError),
              (.decodingError, .decodingError),
              (.noServerConfigured, .noServerConfigured),
-             (.unauthorized, .unauthorized):
+             (.unauthorized, .unauthorized),
+             (.notFound, .notFound):
             return true
         default:
             return false
@@ -73,6 +77,10 @@ final class APIClient {
 
     private struct VersionResponse: Decodable {
         let version: String
+    }
+
+    private struct SearchFoodsResponse: Decodable {
+        let results: [FoodSearchResult]
     }
 
     static func serverError(from data: Data) -> PorquiloAPIError {
@@ -120,6 +128,22 @@ final class APIClient {
         )
         let response: LoginResponse = try await Self.perform(request)
         return (response.token, response.user)
+    }
+
+    /// Returns `[]` on a 404 (no matches) rather than throwing — the search bar treats
+    /// an empty result set and a "nothing found yet" response the same way.
+    func searchFoods(query: String) async throws -> [FoodSearchResult] {
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
+        do {
+            let response: SearchFoodsResponse = try await request("api/foods/search?q=\(encodedQuery)")
+            return response.results
+        } catch PorquiloAPIError.notFound {
+            return []
+        }
+    }
+
+    func lookupBarcode(_ barcode: String) async throws -> FoodSearchResult {
+        try await request("api/foods/barcode/\(barcode)")
     }
 
     func fetchServerVersion() async throws -> String {
@@ -170,6 +194,10 @@ final class APIClient {
 
         if httpResponse.statusCode == 401 {
             throw PorquiloAPIError.unauthorized
+        }
+
+        if httpResponse.statusCode == 404 {
+            throw PorquiloAPIError.notFound
         }
 
         if !(200..<300).contains(httpResponse.statusCode) {

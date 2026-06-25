@@ -18,4 +18,9 @@ final class APIClientTests: XCTestCase {
             XCTFail("Expected .serverError, got \(error)")
         }
     }
+
+    func testNotFoundIsEquatable() {
+        XCTAssertEqual(PorquiloAPIError.notFound, PorquiloAPIError.notFound)
+        XCTAssertNotEqual(PorquiloAPIError.notFound, PorquiloAPIError.unauthorized)
+    }
 }

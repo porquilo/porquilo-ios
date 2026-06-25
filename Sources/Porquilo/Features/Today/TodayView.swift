@@ -3,6 +3,7 @@ import SwiftUI
 struct TodayView: View {
     @State private var displayedDate: Date = Date()
     @State private var showModePicker: Bool = false
+    @State private var showQuickLog: Bool = false
     private let diary: DiaryDay = .sample
 
     var body: some View {
@@ -29,7 +30,13 @@ struct TodayView: View {
             fab
         }
         .sheet(isPresented: $showModePicker) {
-            ModePickerSheet(onQuickLogTapped: { showModePicker = false })
+            ModePickerSheet(onQuickLogTapped: {
+                showModePicker = false
+                showQuickLog = true
+            })
+        }
+        .fullScreenCover(isPresented: $showQuickLog) {
+            QuickLogView(onDismiss: { showQuickLog = false })
         }
     }
 
