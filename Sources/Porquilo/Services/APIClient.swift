@@ -23,6 +23,22 @@ enum PorquiloAPIError: Error, LocalizedError {
     }
 }
 
+extension PorquiloAPIError: Equatable {
+    static func == (lhs: PorquiloAPIError, rhs: PorquiloAPIError) -> Bool {
+        switch (lhs, rhs) {
+        case (.serverError(let lCode, let lMessage), .serverError(let rCode, let rMessage)):
+            return lCode == rCode && lMessage == rMessage
+        case (.networkError, .networkError),
+             (.decodingError, .decodingError),
+             (.noServerConfigured, .noServerConfigured),
+             (.unauthorized, .unauthorized):
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 @Observable
 final class APIClient {
     static let shared = APIClient()
@@ -41,6 +57,24 @@ final class APIClient {
         let error: Inner
     }
 
+    private struct LoginRequestBody: Encodable {
+        let username: String
+        let password: String
+    }
+
+    private struct PairingExchangeBody: Encodable {
+        let code: String
+    }
+
+    private struct LoginResponse: Decodable {
+        let token: String
+        let user: User
+    }
+
+    private struct VersionResponse: Decodable {
+        let version: String
+    }
+
     static func serverError(from data: Data) -> PorquiloAPIError {
         if let envelope = try? JSONDecoder().decode(ErrorEnvelope.self, from: data) {
             return .serverError(code: envelope.error.code, message: envelope.error.message)
@@ -54,12 +88,63 @@ final class APIClient {
         body: (any Encodable)? = nil
     ) async throws -> T {
         guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        let request = Self.buildRequest(
+            url: baseURL.appendingPathComponent(path),
+            method: method,
+            body: body,
+            authToken: KeychainService.load()
+        )
+        return try await Self.perform(request)
+    }
 
-        var request = URLRequest(url: baseURL.appendingPathComponent(path))
+    /// Builds its request from the passed-in `serverURL`, not the stored `baseURL` —
+    /// at call time the server hasn't been configured yet (the user is mid-login).
+    func login(serverURL: URL, username: String, password: String) async throws -> (token: String, user: User) {
+        let request = Self.buildRequest(
+            url: serverURL.appendingPathComponent("api/auth/token"),
+            method: "POST",
+            body: LoginRequestBody(username: username, password: password),
+            authToken: nil
+        )
+        let response: LoginResponse = try await Self.perform(request)
+        return (response.token, response.user)
+    }
+
+    /// Builds its request from the scanned `serverURL`, not the stored `baseURL`.
+    func exchangePairingCode(_ code: String, serverURL: URL) async throws -> (token: String, user: User) {
+        let request = Self.buildRequest(
+            url: serverURL.appendingPathComponent("api/auth/pairing/exchange"),
+            method: "POST",
+            body: PairingExchangeBody(code: code),
+            authToken: nil
+        )
+        let response: LoginResponse = try await Self.perform(request)
+        return (response.token, response.user)
+    }
+
+    func fetchServerVersion() async throws -> String {
+        guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        let request = Self.buildRequest(
+            url: baseURL.appendingPathComponent("api/version"),
+            method: "GET",
+            body: nil,
+            authToken: nil
+        )
+        let response: VersionResponse = try await Self.perform(request)
+        return response.version
+    }
+
+    private static func buildRequest(
+        url: URL,
+        method: String,
+        body: (any Encodable)?,
+        authToken: String?
+    ) -> URLRequest {
+        var request = URLRequest(url: url)
         request.httpMethod = method
 
-        if let token = KeychainService.load() {
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        if let authToken {
+            request.setValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
         }
 
         if let body {
@@ -67,6 +152,10 @@ final class APIClient {
             request.httpBody = try? JSONEncoder().encode(AnyEncodable(body))
         }
 
+        return request
+    }
+
+    private static func perform<T: Decodable>(_ request: URLRequest) async throws -> T {
         let data: Data
         let response: URLResponse
         do {
@@ -84,7 +173,7 @@ final class APIClient {
         }
 
         if !(200..<300).contains(httpResponse.statusCode) {
-            throw Self.serverError(from: data)
+            throw serverError(from: data)
         }
 
         do {
