@@ -34,15 +34,3 @@ struct ContentView: View {
         }
     }
 }
-
-struct MainTabView: View {
-    @Environment(AppState.self) private var appState
-
-    var body: some View {
-        Text("Main")
-            .task { await appState.checkServerVersion() }
-            .sheet(isPresented: Bindable(appState).showVersionWarning) {
-                VersionWarningSheet()
-            }
-    }
-}

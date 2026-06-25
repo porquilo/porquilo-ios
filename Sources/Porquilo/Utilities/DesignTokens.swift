@@ -60,6 +60,10 @@ enum DesignTokens {
     // Borders
     static let border = Color(light: "#BFB6A0", dark: "#3A2F22")
     static let borderStrong = Color(light: "#8A8273", dark: "#524432")
+    static let borderSoft = border.opacity(0.5)
+
+    // Shadows
+    static let shadowColor = Color(light: "#1A140C", dark: "#000000")
 
     // Status — danger
     static let dangerForeground = Color(light: "#6F2818", dark: "#E89478")
