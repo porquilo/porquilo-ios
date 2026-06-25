@@ -17,6 +17,16 @@ Household-scale multi-user: separate diaries per person, one shared server insta
 - **Never add a third confidence tier.** The model is strictly two states: `Measured`
   (scale only) and `Estimated` (everything else). "Calculated" does not exist in this app.
 - **Never hard-code hex values in view files.** All colors come from `DesignTokens.swift`.
+- **Full-screen backgrounds must ignore the safe area as a separate layer, not as a
+  `.background()` modifier on the content stack.** `VStack { ... }.background(Color.x.ignoresSafeArea())`
+  does not reliably fill behind the notch/dynamic island/home indicator, because the `VStack`
+  only sizes to fit its children — the background inherits that smaller frame regardless of
+  `ignoresSafeArea()`. Use `ZStack { Color.x.ignoresSafeArea(); VStack { ... } }` instead, with
+  the background as an independent sibling. This is the pattern `TodayView` and `MainTabView`
+  already use. Bitten twice: `WelcomeView` (fixed in 081cda7) and the Quick Log screens
+  (`QuickLogSearchView`, `BarcodeNotFoundView`, `BarcodeScanView`, iOS-10) — caught both times
+  by literally measuring screenshot pixel boundaries, since the gap doesn't show up in Xcode's
+  canvas preview.
 
 ---
 

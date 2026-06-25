@@ -79,6 +79,11 @@ enum DesignTokens {
         dark: Color(.sRGB, red: 165 / 255, green: 188 / 255, blue: 73 / 255, opacity: 0.18)
     )
 
+    // Status — warning
+    static let warningForeground = Color(light: "#7E5A05", dark: "#F0C46A")
+    static let warningBackground = Color(light: "#FAE6B3", dark: "#3A2E12")
+    static let warningBorder = Color(light: "#E8C572", dark: "#5A4520")
+
     // Confidence — Measured (scale only)
     static let confidenceMeasuredFg = Color(light: "#455A1C", dark: "#C8DC75")
     static let confidenceMeasuredBg = Color(light: "#E5EBC8", dark: "#2A331A")
