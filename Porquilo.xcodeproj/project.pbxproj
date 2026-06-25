@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6CCCF0CAAFB740B78BA451FB /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27382CBC3AA1437D930400D8 /* MainTabView.swift */; };
+		2F296C47CD204F5198FD9D46 /* PorquiloTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E4A793D36941C2B29F399F /* PorquiloTabBar.swift */; };
+		564AF7B61ACE4860902E94F9 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49A5573086F4651B3523319 /* TodayView.swift */; };
+		17B15D38ECA94D4D813F9E86 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2040099E041FD8FE551A0 /* LibraryView.swift */; };
+		A292643ED14C43A1B68F6BBC /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D65AC600787491B90B52A5B /* ReportsView.swift */; };
+		E81888E20EBD4F1DAD6B6FF9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31888467EBFB40678CE13AA1 /* SettingsView.swift */; };
 		0E55265B670AEE66F3EF9026 /* ConnectingRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ECDFAA933528909D5A811C /* ConnectingRequest.swift */; };
 		1C18523CFA9C8954B47CC995 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4036A02656B05DBD4FAFAF98 /* APIClient.swift */; };
 		2C843A32FDC046EBECF4124D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */; };
@@ -50,23 +56,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		27382CBC3AA1437D930400D8 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		A6E4A793D36941C2B29F399F /* PorquiloTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloTabBar.swift; sourceTree = "<group>"; };
+		F49A5573086F4651B3523319 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		B0F2040099E041FD8FE551A0 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		9D65AC600787491B90B52A5B /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
+		31888467EBFB40678CE13AA1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		09705A7910779DBF3CF02934 /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectToServerView.swift; sourceTree = "<group>"; };
 		15ECDFAA933528909D5A811C /* ConnectingRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingRequest.swift; sourceTree = "<group>"; };
 		27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
 		2B4661E6F3BE7E92C9B2F985 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		3ED56285FDF57EF6364ECC6C /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
-		3F298A0BD7EC88E876468316 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		4036A02656B05DBD4FAFAF98 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PorquiloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		53147222241CF2D5CFEE495E /* QRPairingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayload.swift; sourceTree = "<group>"; };
-		5EA47DD57B12706027466D3A /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		6250AB67C83EF7BDBEBE098E /* Porquilo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Porquilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionWarningSheet.swift; sourceTree = "<group>"; };
 		7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidation.swift; sourceTree = "<group>"; };
-		871E3CE2E0AAB3A72E99D0FB /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
 		918AEAD092391B9A0C5B926A /* AuthRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRootView.swift; sourceTree = "<group>"; };
 		92AF415AA75C5725B53FEB70 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -84,7 +92,6 @@
 		ED9755E72682009A382F0050 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
-		FB3D254245C407D3192B7F32 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
 		71DE575527D34CD88D8A8BFB /* Geist[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geist[wght].ttf"; sourceTree = "<group>"; };
 		A8A638FF14E64CE58B7C49A0 /* GeistMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GeistMono[wght].ttf"; sourceTree = "<group>"; };
 		4CE517B6AE30469CBDF6998A /* Newsreader-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Newsreader-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
@@ -107,6 +114,7 @@
 				D77EA9868230857E087C9436 /* AppConstants.swift */,
 				F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */,
 				BF78024B692446B8AD86E52E /* Info.plist */,
+				27382CBC3AA1437D930400D8 /* MainTabView.swift */,
 				9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */,
 			);
 			path = App;
@@ -125,7 +133,7 @@
 		4E62A069EF516AE4B73EA110 /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				5EA47DD57B12706027466D3A /* .gitkeep */,
+				F49A5573086F4651B3523319 /* TodayView.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -133,7 +141,7 @@
 		55884E49B09FD1591DC3D75F /* Reports */ = {
 			isa = PBXGroup;
 			children = (
-				FB3D254245C407D3192B7F32 /* .gitkeep */,
+				9D65AC600787491B90B52A5B /* ReportsView.swift */,
 			);
 			path = Reports;
 			sourceTree = "<group>";
@@ -229,8 +237,8 @@
 		E166C2E1F99AEF03D8FD0BEB /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				3F298A0BD7EC88E876468316 /* .gitkeep */,
 				AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */,
+				A6E4A793D36941C2B29F399F /* PorquiloTabBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -246,7 +254,7 @@
 		E8A700BD76173C1E78974EAB /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				871E3CE2E0AAB3A72E99D0FB /* .gitkeep */,
+				B0F2040099E041FD8FE551A0 /* LibraryView.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -254,7 +262,7 @@
 		F5EC748B747309C46B78D414 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				3ED56285FDF57EF6364ECC6C /* .gitkeep */,
+				31888467EBFB40678CE13AA1 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -362,13 +370,19 @@
 				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
 				B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */,
 				EC0D2C9A967087EB58333FE4 /* LogoMarkView.swift in Sources */,
+				17B15D38ECA94D4D813F9E86 /* LibraryView.swift in Sources */,
+				6CCCF0CAAFB740B78BA451FB /* MainTabView.swift in Sources */,
 				E98C6A0EC40366F5AEA0DB4E /* ManualEntryValidation.swift in Sources */,
 				373732863CE53F66EF2442A7 /* ManualEntryView.swift in Sources */,
 				911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */,
+				2F296C47CD204F5198FD9D46 /* PorquiloTabBar.swift in Sources */,
 				4FA739F28DD977B33624FC03 /* QRCaptureCoordinator.swift in Sources */,
 				50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */,
 				7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */,
 				881AC30F5456D44EC56F1EFF /* QRScannerView.swift in Sources */,
+				A292643ED14C43A1B68F6BBC /* ReportsView.swift in Sources */,
+				E81888E20EBD4F1DAD6B6FF9 /* SettingsView.swift in Sources */,
+				564AF7B61ACE4860902E94F9 /* TodayView.swift in Sources */,
 				F81D5E99A31C00C8C138A2BD /* User.swift in Sources */,
 				87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */,
 				CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */,
