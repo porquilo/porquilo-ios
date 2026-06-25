@@ -409,6 +409,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -431,6 +432,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
