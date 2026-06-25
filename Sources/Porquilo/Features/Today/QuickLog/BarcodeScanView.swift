@@ -191,9 +191,9 @@ struct BarcodeScanView: View {
         Task {
             do {
                 let result = try await APIClient.shared.lookupBarcode(barcode)
-                candidate = LogCandidate(result: result)
-                // .quantity step lands in iOS-6; for now just confirm the candidate was captured.
-                print("LogCandidate selected: \(candidate!)")
+                let selected = LogCandidate(result: result)
+                candidate = selected
+                step = .quantity(selected)
             } catch PorquiloAPIError.serverError(let code, _) where code == "barcode_not_found" {
                 step = .barcodeNotFound(barcode: barcode)
             } catch PorquiloAPIError.networkError(_) {

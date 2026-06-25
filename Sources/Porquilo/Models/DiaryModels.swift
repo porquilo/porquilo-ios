@@ -22,6 +22,16 @@ enum MealSlot: String, CaseIterable {
     case lunch = "Lunch"
     case dinner = "Dinner"
     case snack = "Snack"
+
+    static func inferred(from date: Date) -> MealSlot {
+        let hour = Calendar.current.component(.hour, from: date)
+        switch hour {
+        case 5..<11: return .breakfast
+        case 11..<15: return .lunch
+        case 15..<20: return .dinner
+        default: return .snack
+        }
+    }
 }
 
 struct MealSection: Identifiable {

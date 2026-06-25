@@ -203,9 +203,9 @@ struct QuickLogSearchView: View {
     }
 
     private func select(_ result: FoodSearchResult) {
-        candidate = LogCandidate(result: result)
-        // .quantity step lands in iOS-6; for now just confirm the candidate was captured.
-        print("LogCandidate selected: \(candidate!)")
+        let selected = LogCandidate(result: result)
+        candidate = selected
+        step = .quantity(selected)
     }
 
     private func scheduleSearch(for newQuery: String) {
