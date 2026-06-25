@@ -88,6 +88,15 @@ enum DesignTokens {
     static let confidenceEstimatedFg = Color(light: "#7E5A05", dark: "#F0C46A")
     static let confidenceEstimatedBg = Color(light: "#FAE6B3", dark: "#3A2E12")
     static let confidenceEstimatedDot = Color(light: "#C18A0F", dark: "#E8B556")
+
+    // Macro nutrients
+    static let herb500 = Color(light: "#6A8530", dark: "#B5C765")
+    static let honey500 = Color(light: "#C18A0F", dark: "#E8B556")
+    static let clay500 = Color(light: "#B8431D", dark: "#E07553")
+
+    // Accent — soft variants (e.g. Quick log card)
+    static let accentSoftForeground = accentHover
+    static let accentSoftBorder = Color(light: "#F0C9AE", dark: "#4A2A1D")
 }
 
 extension Font {
@@ -141,8 +150,26 @@ private struct Shadow2Modifier: ViewModifier {
     }
 }
 
+/// Approximates the design system's `--shadow-1` token — a single, lighter outer shadow
+/// used for smaller surfaces like diary entry rows.
+private struct Shadow1Modifier: ViewModifier {
+    @Environment(\.colorScheme) private var colorScheme
+
+    func body(content: Content) -> some View {
+        if colorScheme == .dark {
+            content.shadow(color: .black.opacity(0.4), radius: 2, x: 0, y: 1)
+        } else {
+            content.shadow(color: Color(red: 26 / 255, green: 18 / 255, blue: 11 / 255, opacity: 0.06), radius: 2, x: 0, y: 1)
+        }
+    }
+}
+
 extension View {
     func applyShadow2() -> some View {
         modifier(Shadow2Modifier())
+    }
+
+    func applyShadow1() -> some View {
+        modifier(Shadow1Modifier())
     }
 }
