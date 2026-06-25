@@ -48,6 +48,6 @@ struct WelcomeView: View {
             .padding(.bottom, 44)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(DesignTokens.background)
+        .background(DesignTokens.background.ignoresSafeArea())
     }
 }
