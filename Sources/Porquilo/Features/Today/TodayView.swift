@@ -1,20 +1,81 @@
 import SwiftUI
 
 struct TodayView: View {
+    @State private var displayedDate: Date = Date()
+    @State private var showModePicker: Bool = false
+    private let diary: DiaryDay = .sample
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             DesignTokens.background.ignoresSafeArea()
 
-            VStack {
-                Spacer()
-                Text("Today")
-                    .font(.porqBody)
-                    .foregroundStyle(DesignTokens.textTertiary)
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
+            VStack(spacing: 0) {
+                dateHeader
 
-            // FAB stub — inert, no tap action
+                ScrollView {
+                    VStack(spacing: 16) {
+                        MacroBarView(total: diary.macroTotal)
+
+                        ForEach(diary.meals) { section in
+                            MealSectionView(section: section, onAddFood: { showModePicker = true })
+                        }
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 12)
+                    .padding(.bottom, 130)
+                }
+            }
+
+            fab
+        }
+        .sheet(isPresented: $showModePicker) {
+            ModePickerSheet(onQuickLogTapped: { showModePicker = false })
+        }
+    }
+
+    private var dateHeader: some View {
+        HStack {
+            Button(action: { displayedDate = Calendar.current.date(byAdding: .day, value: -1, to: displayedDate) ?? displayedDate }) {
+                Image(systemName: "chevron.left")
+                    .foregroundStyle(DesignTokens.textSecondary)
+                    .frame(width: 40, height: 40)
+            }
+
+            Spacer()
+
+            VStack(spacing: 3) {
+                Text(formattedDate)
+                    .font(.custom("Newsreader", size: 19))
+                    .tracking(-0.01 * 19)
+                    .foregroundStyle(DesignTokens.textPrimary)
+                    .lineSpacing(0)
+
+                Text(relativeDayLabel)
+                    .font(.system(size: 10, weight: .semibold))
+                    .tracking(0.08 * 10)
+                    .textCase(.uppercase)
+                    .foregroundStyle(DesignTokens.textTertiary)
+            }
+
+            Spacer()
+
+            Button(action: { displayedDate = Calendar.current.date(byAdding: .day, value: 1, to: displayedDate) ?? displayedDate }) {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(DesignTokens.textSecondary)
+                    .frame(width: 40, height: 40)
+            }
+        }
+        .padding(.horizontal, 8)
+        .frame(height: 56)
+        .overlay(alignment: .bottom) {
+            Rectangle()
+                .fill(DesignTokens.borderSoft)
+                .frame(height: 1)
+        }
+    }
+
+    private var fab: some View {
+        Button(action: { showModePicker = true }) {
             RoundedRectangle(cornerRadius: 18)
                 .fill(DesignTokens.accent)
                 .frame(width: 56, height: 56)
@@ -31,8 +92,31 @@ struct TodayView: View {
                         .offset(x: 2, y: -2)
                 }
                 .shadow(color: DesignTokens.accent.opacity(0.42), radius: 12, y: 5)
-                .padding(.trailing, 20)
-                .padding(.bottom, 110)
         }
+        .buttonStyle(.plain)
+        .padding(.trailing, 20)
+        .padding(.bottom, 110)
+    }
+
+    private var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE d MMM"
+        return formatter.string(from: displayedDate)
+    }
+
+    private var relativeDayLabel: String {
+        let calendar = Calendar.current
+        if calendar.isDateInToday(displayedDate) {
+            return "Today"
+        }
+        if calendar.isDateInYesterday(displayedDate) {
+            return "Yesterday"
+        }
+        if calendar.isDateInTomorrow(displayedDate) {
+            return "Tomorrow"
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE"
+        return formatter.string(from: displayedDate)
     }
 }
