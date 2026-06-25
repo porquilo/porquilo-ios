@@ -40,6 +40,7 @@
 		C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */; };
 		CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5401332ADEB9D9422C6721D /* WelcomeView.swift */; };
 		D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3144B071E68F342CD9B05 /* DesignTokens.swift */; };
+		DBB8E1C4256EAB0DA35FE710 /* LogCandidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */; };
 		DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */; };
 		E1B9CAC022B8AA4B4FC2B26D /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EA9868230857E087C9436 /* AppConstants.swift */; };
 		E4F645439EAA76BABDCDCC65 /* ConnectingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C0AA51469CA96941A741E9 /* ConnectingView.swift */; };
@@ -114,6 +115,7 @@
 		D5401332ADEB9D9422C6721D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		D77EA9868230857E087C9436 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCaptureCoordinator.swift; sourceTree = "<group>"; };
+		ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCandidateTests.swift; sourceTree = "<group>"; };
 		ED9755E72682009A382F0050 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				ED9755E72682009A382F0050 /* APIClientTests.swift */,
 				8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */,
 				71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */,
+				ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */,
 				C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */,
 				9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */,
 			);
@@ -456,6 +459,7 @@
 				EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */,
 				C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */,
 				DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */,
+				DBB8E1C4256EAB0DA35FE710 /* LogCandidateTests.swift in Sources */,
 				E8C24CBAE490490B60D14E61 /* ManualEntryValidationTests.swift in Sources */,
 				EA3AF8B2175B7FDB45C65553 /* QRPairingPayloadTests.swift in Sources */,
 			);
