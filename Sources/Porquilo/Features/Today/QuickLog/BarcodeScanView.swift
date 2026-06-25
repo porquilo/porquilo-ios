@@ -6,6 +6,7 @@ struct BarcodeScanView: View {
     @Binding var candidate: LogCandidate?
     @Binding var isOffline: Bool
     let onDismiss: () -> Void
+    @Environment(AppState.self) private var appState
 
     /// Hardcoded — this screen simulates a camera viewfinder and must stay dark
     /// regardless of system color scheme, same rationale as QRScannerView in iOS-2.
@@ -191,12 +192,14 @@ struct BarcodeScanView: View {
         Task {
             do {
                 let result = try await APIClient.shared.lookupBarcode(barcode)
-                let selected = LogCandidate(result: result)
+                let selected = LogCandidate(result: result, origin: .barcode)
                 candidate = selected
                 step = .quantity(selected)
-            } catch PorquiloAPIError.serverError(let code, _) where code == "barcode_not_found" {
+            } catch PorquiloAPIError.notFound {
                 step = .barcodeNotFound(barcode: barcode)
-            } catch PorquiloAPIError.networkError(_) {
+            } catch PorquiloAPIError.unauthorized {
+                appState.signOut()
+            } catch PorquiloAPIError.networkError(_), PorquiloAPIError.noServerConfigured {
                 isOffline = true
                 step = .search
             } catch {

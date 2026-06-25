@@ -79,74 +79,145 @@ final class APIClient {
         let version: String
     }
 
-    private struct SearchFoodsResponse: Decodable {
-        let results: [FoodSearchResult]
+    /// Mirrors `FoodRead` from `GET /api/foods` — nutrients arrive as a dict.
+    /// Pydantic serializes `Decimal` fields as JSON strings (e.g. `"48.4000000000"`),
+    /// not numbers, so the dict values must be decoded as `String` and parsed.
+    private struct FoodReadDTO: Decodable {
+        let id: UUID
+        let name: String
+        let brand: String?
+        let displayName: String?
+        let source: String
+        let nutrients: [String: String]
+
+        enum CodingKeys: String, CodingKey {
+            case id, name, brand
+            case displayName = "display_name"
+            case source, nutrients
+        }
+    }
+
+    private struct FoodPageResponse: Decodable {
+        let items: [FoodReadDTO]
+        let total: Int
+    }
+
+    /// `value_per_100` is a `Decimal` on the server, serialized as a JSON string.
+    private struct NutrientOutDTO: Decodable {
+        let nutrientKey: String
+        let valuePer100: String
+
+        enum CodingKeys: String, CodingKey {
+            case nutrientKey = "nutrient_key"
+            case valuePer100 = "value_per_100"
+        }
+    }
+
+    /// Mirrors `FoodOut` from `GET /api/foods/lookup/barcode/{upc}` — nutrients
+    /// arrive as a list here, unlike the dict shape `FoodRead` uses for search.
+    private struct FoodOutDTO: Decodable {
+        let id: UUID
+        let name: String
+        let brand: String?
+        let displayName: String?
+        let source: String
+        let nutrients: [NutrientOutDTO]
+
+        enum CodingKeys: String, CodingKey {
+            case id, name, brand
+            case displayName = "display_name"
+            case source, nutrients
+        }
+    }
+
+    private struct MealDTO: Decodable {
+        let id: UUID
+        let name: String
+        let sortOrder: Int
+        let isDefault: Bool
+
+        enum CodingKeys: String, CodingKey {
+            case id, name
+            case sortOrder = "sort_order"
+            case isDefault = "is_default"
+        }
     }
 
     private struct CreateLogEntryBody: Encodable {
         let foodId: UUID
-        let quantityG: Double
-        let unit: String
-        let mealSlot: String
+        let mealId: UUID
+        let weightG: Double
         let eatenAt: Date
+        let weightSource: String
+        let inputMethod: String
 
         enum CodingKeys: String, CodingKey {
             case foodId = "food_id"
-            case quantityG = "quantity_g"
-            case unit
-            case mealSlot = "meal_slot"
+            case mealId = "meal_id"
+            case weightG = "weight_g"
             case eatenAt = "eaten_at"
+            case weightSource = "weight_source"
+            case inputMethod = "input_method"
         }
 
         func encode(to encoder: Encoder) throws {
             var container = encoder.container(keyedBy: CodingKeys.self)
             try container.encode(foodId, forKey: .foodId)
-            try container.encode(quantityG, forKey: .quantityG)
-            try container.encode(unit, forKey: .unit)
-            try container.encode(mealSlot, forKey: .mealSlot)
+            try container.encode(mealId, forKey: .mealId)
+            try container.encode(weightG, forKey: .weightG)
             try container.encode(ISO8601DateFormatter().string(from: eatenAt), forKey: .eatenAt)
+            try container.encode(weightSource, forKey: .weightSource)
+            try container.encode(inputMethod, forKey: .inputMethod)
         }
     }
 
-    private struct LogEntryDTO: Decodable {
+    /// Mirrors `EntryOut` from `POST /api/entries`. `value` is a `Decimal` on the
+    /// server, serialized as a JSON string.
+    struct LoggedEntry: Decodable {
+        struct NutrientValue: Decodable {
+            let value: String
+            let coverage: String
+        }
+
         let id: UUID
-        let foodName: String
-        let eatenAt: Date
-        let weightG: Double?
-        let calories: Double
-        let isEstimated: Bool
+        let nutrients: [String: NutrientValue]
+    }
 
-        enum CodingKeys: String, CodingKey {
-            case id
-            case foodName = "food_name"
-            case eatenAt = "eaten_at"
-            case weightG = "weight_g"
-            case calories
-            case isEstimated = "is_estimated"
-        }
-
-        init(from decoder: Decoder) throws {
-            let container = try decoder.container(keyedBy: CodingKeys.self)
-            id = try container.decode(UUID.self, forKey: .id)
-            foodName = try container.decode(String.self, forKey: .foodName)
-            weightG = try container.decodeIfPresent(Double.self, forKey: .weightG)
-            calories = try container.decode(Double.self, forKey: .calories)
-            isEstimated = try container.decode(Bool.self, forKey: .isEstimated)
-
-            let eatenAtString = try container.decode(String.self, forKey: .eatenAt)
-            guard let date = ISO8601DateFormatter().date(from: eatenAtString) else {
-                throw DecodingError.dataCorruptedError(forKey: .eatenAt, in: container, debugDescription: "eaten_at is not a valid ISO8601 date")
-            }
-            eatenAt = date
+    private static func displaySourceName(_ source: String) -> String {
+        switch source {
+        case "usda": return "USDA"
+        case "open_food_facts": return "Barcode"
+        case "custom": return "Pantry"
+        default: return source.capitalized
         }
     }
 
-    private struct CreateLogEntryResponse: Decodable {
-        let logEntry: LogEntryDTO
+    private static func searchResult(from dto: FoodReadDTO, isTopMatch: Bool) -> FoodSearchResult {
+        FoodSearchResult(
+            id: dto.id,
+            name: dto.displayName ?? dto.name,
+            sourceName: Self.displaySourceName(dto.source),
+            subtitle: dto.brand ?? Self.displaySourceName(dto.source),
+            nutrientsPer100g: dto.nutrients.compactMapValues(Double.init),
+            isTopMatch: isTopMatch
+        )
+    }
 
-        enum CodingKeys: String, CodingKey {
-            case logEntry = "log_entry"
-        }
+    private static func searchResult(from dto: FoodOutDTO) -> FoodSearchResult {
+        let nutrients = Dictionary(
+            uniqueKeysWithValues: dto.nutrients.compactMap { nutrient -> (String, Double)? in
+                guard let value = Double(nutrient.valuePer100) else { return nil }
+                return (nutrient.nutrientKey, value)
+            }
+        )
+        return FoodSearchResult(
+            id: dto.id,
+            name: dto.displayName ?? dto.name,
+            sourceName: Self.displaySourceName(dto.source),
+            subtitle: dto.brand ?? Self.displaySourceName(dto.source),
+            nutrientsPer100g: nutrients,
+            isTopMatch: false
+        )
     }
 
     static func serverError(from data: Data) -> PorquiloAPIError {
@@ -196,44 +267,44 @@ final class APIClient {
         return (response.token, response.user)
     }
 
-    /// Returns `[]` on a 404 (no matches) rather than throwing — the search bar treats
-    /// an empty result set and a "nothing found yet" response the same way.
+    /// `GET /api/foods` always returns `{"items": [], "total": 0}` for no matches —
+    /// there's no 404 case to special-case here.
     func searchFoods(query: String) async throws -> [FoodSearchResult] {
         let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? query
-        do {
-            let response: SearchFoodsResponse = try await request("api/foods/search?q=\(encodedQuery)")
-            return response.results
-        } catch PorquiloAPIError.notFound {
-            return []
+        let response: FoodPageResponse = try await request("api/foods?q=\(encodedQuery)")
+        return response.items.enumerated().map { index, dto in
+            Self.searchResult(from: dto, isTopMatch: index == 0)
         }
     }
 
     func lookupBarcode(_ barcode: String) async throws -> FoodSearchResult {
-        try await request("api/foods/barcode/\(barcode)")
+        let dto: FoodOutDTO = try await request("api/foods/lookup/barcode/\(barcode)")
+        return Self.searchResult(from: dto)
     }
 
+    func fetchMeals() async throws -> [Meal] {
+        let dtos: [MealDTO] = try await request("api/meals")
+        return dtos.map { Meal(id: $0.id, name: $0.name, sortOrder: $0.sortOrder, isDefault: $0.isDefault) }
+    }
+
+    @discardableResult
     func createLogEntry(
         foodId: UUID,
-        quantityG: Double,
-        unit: String,
-        mealSlot: String,
-        eatenAt: Date
-    ) async throws -> DiaryLogEntry {
-        let body = CreateLogEntryBody(foodId: foodId, quantityG: quantityG, unit: unit, mealSlot: mealSlot, eatenAt: eatenAt)
-        let response: CreateLogEntryResponse = try await request("api/log", method: "POST", body: body)
-        let dto = response.logEntry
-
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "h:mm"
-
-        return DiaryLogEntry(
-            id: dto.id,
-            foodName: dto.foodName,
-            timeString: timeFormatter.string(from: dto.eatenAt),
-            weightG: dto.weightG,
-            calories: dto.calories,
-            isEstimated: dto.isEstimated
+        mealId: UUID,
+        weightG: Double,
+        eatenAt: Date,
+        weightSource: String,
+        inputMethod: String
+    ) async throws -> LoggedEntry {
+        let body = CreateLogEntryBody(
+            foodId: foodId,
+            mealId: mealId,
+            weightG: weightG,
+            eatenAt: eatenAt,
+            weightSource: weightSource,
+            inputMethod: inputMethod
         )
+        return try await request("api/entries", method: "POST", body: body)
     }
 
     func fetchServerVersion() async throws -> String {

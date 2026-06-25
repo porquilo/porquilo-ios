@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct MealTimePickerSheet: View {
-    @Binding var mealSlot: MealSlot
+    let meals: [Meal]
+    @Binding var selectedMeal: Meal?
     @Binding var eatenAt: Date
     @Environment(\.dismiss) private var dismiss
 
@@ -62,21 +63,21 @@ struct MealTimePickerSheet: View {
     private var mealChips: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(MealSlot.allCases, id: \.self) { slot in
-                    Button(action: { mealSlot = slot }) {
-                        Text(slot.rawValue)
-                            .font(.system(size: 14, weight: mealSlot == slot ? .semibold : .medium))
-                            .foregroundStyle(mealSlot == slot ? DesignTokens.textOnAccent : DesignTokens.textSecondary)
+                ForEach(meals) { meal in
+                    Button(action: { selectedMeal = meal }) {
+                        Text(meal.name)
+                            .font(.system(size: 14, weight: selectedMeal == meal ? .semibold : .medium))
+                            .foregroundStyle(selectedMeal == meal ? DesignTokens.textOnAccent : DesignTokens.textSecondary)
                             .padding(.vertical, 9)
                             .padding(.horizontal, 16)
-                            .background(mealSlot == slot ? DesignTokens.accent : DesignTokens.backgroundSunken)
+                            .background(selectedMeal == meal ? DesignTokens.accent : DesignTokens.backgroundSunken)
                             .overlay {
-                                if mealSlot != slot {
+                                if selectedMeal != meal {
                                     Capsule().stroke(DesignTokens.border, lineWidth: 1)
                                 }
                             }
                             .clipShape(Capsule())
-                            .shadow(color: mealSlot == slot ? DesignTokens.accent.opacity(0.25) : .clear, radius: 6, y: 2)
+                            .shadow(color: selectedMeal == meal ? DesignTokens.accent.opacity(0.25) : .clear, radius: 6, y: 2)
                     }
                 }
 

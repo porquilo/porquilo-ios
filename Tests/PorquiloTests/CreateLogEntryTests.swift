@@ -19,6 +19,8 @@ final class CreateLogEntryTests: XCTestCase {
         var capturedRequest: URLRequest?
         var capturedBody: [String: Any]?
 
+        let entryId = UUID()
+
         StubURLProtocol.requestHandler = { request in
             capturedRequest = request
             if let bodyData = request.bodyData,
@@ -27,36 +29,38 @@ final class CreateLogEntryTests: XCTestCase {
             }
 
             let json = """
-            {"log_entry": {"id": "\(UUID().uuidString)", "food_name": "Overnight oats", "eaten_at": "2026-06-24T19:12:00Z", "weight_g": 240.0, "calories": 420.0, "is_estimated": true}}
+            {"id": "\(entryId.uuidString)", "nutrients": {"calories_kcal": {"value": "420.0000000000", "coverage": "full"}}}
             """
             let data = Data(json.utf8)
-            let response = HTTPURLResponse(url: request.url!, statusCode: 200, httpVersion: nil, headerFields: nil)!
+            let response = HTTPURLResponse(url: request.url!, statusCode: 201, httpVersion: nil, headerFields: nil)!
             return (response, data)
         }
 
         let foodId = UUID()
+        let mealId = UUID()
         let eatenAt = ISO8601DateFormatter().date(from: "2026-06-24T19:12:00Z")!
 
         let entry = try await APIClient.shared.createLogEntry(
             foodId: foodId,
-            quantityG: 240.0,
-            unit: "cup",
-            mealSlot: "dinner",
-            eatenAt: eatenAt
+            mealId: mealId,
+            weightG: 240.0,
+            eatenAt: eatenAt,
+            weightSource: "estimated",
+            inputMethod: "quick_search"
         )
 
         XCTAssertEqual(capturedRequest?.httpMethod, "POST")
-        XCTAssertEqual(capturedRequest?.url?.path, "/api/log")
+        XCTAssertEqual(capturedRequest?.url?.path, "/api/entries")
         XCTAssertEqual(capturedBody?["food_id"] as? String, foodId.uuidString)
-        XCTAssertEqual(capturedBody?["quantity_g"] as? Double, 240.0)
-        XCTAssertEqual(capturedBody?["unit"] as? String, "cup")
-        XCTAssertEqual(capturedBody?["meal_slot"] as? String, "dinner")
+        XCTAssertEqual(capturedBody?["meal_id"] as? String, mealId.uuidString)
+        XCTAssertEqual(capturedBody?["weight_g"] as? Double, 240.0)
+        XCTAssertEqual(capturedBody?["weight_source"] as? String, "estimated")
+        XCTAssertEqual(capturedBody?["input_method"] as? String, "quick_search")
         XCTAssertEqual(capturedBody?["eaten_at"] as? String, "2026-06-24T19:12:00Z")
 
-        XCTAssertEqual(entry.foodName, "Overnight oats")
-        XCTAssertEqual(entry.weightG, 240.0)
-        XCTAssertEqual(entry.calories, 420.0)
-        XCTAssertTrue(entry.isEstimated)
+        XCTAssertEqual(entry.id, entryId)
+        XCTAssertEqual(entry.nutrients["calories_kcal"]?.value, "420.0000000000")
+        XCTAssertEqual(entry.nutrients["calories_kcal"]?.coverage, "full")
     }
 
     func testCreateLogEntryThrowsOnServerError() async {
@@ -72,10 +76,11 @@ final class CreateLogEntryTests: XCTestCase {
         do {
             _ = try await APIClient.shared.createLogEntry(
                 foodId: UUID(),
-                quantityG: -5,
-                unit: "g",
-                mealSlot: "snack",
-                eatenAt: Date()
+                mealId: UUID(),
+                weightG: -5,
+                eatenAt: Date(),
+                weightSource: "estimated",
+                inputMethod: "quick_search"
             )
             XCTFail("Expected createLogEntry to throw")
         } catch PorquiloAPIError.serverError(let code, let message) {

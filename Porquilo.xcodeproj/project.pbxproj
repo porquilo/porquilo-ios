@@ -36,6 +36,7 @@
 		A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */; };
 		A3F71F9ABE163FAB4E1B64AA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9F4633F07B8AA914D47B6 /* MainTabView.swift */; };
 		A87920410E8F7E48087BA391 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DD1537F1B5ED000C3CAD66 /* SettingsView.swift */; };
+		A93FDD1D9C1C3E9C225F09A0 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761B27EA60882DF4B12F464 /* Meal.swift */; };
 		AA0970B847E239D4C0B5188C /* ModePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065AE102AF43729E58B38B5D /* ModePickerSheet.swift */; };
 		AB583BA4BC8BA502A2251B25 /* LogCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E22A5D59556BA4B881B8E /* LogCandidate.swift */; };
 		B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */; };
@@ -93,6 +94,7 @@
 		53147222241CF2D5CFEE495E /* QRPairingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayload.swift; sourceTree = "<group>"; };
 		5EBF7FEB140462BD4BDE29C4 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		6250AB67C83EF7BDBEBE098E /* Porquilo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Porquilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6761B27EA60882DF4B12F464 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		76AD118B487776AF58236396 /* PorquiloTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloTabBar.swift; sourceTree = "<group>"; };
 		77533196A0685995D42FE858 /* QuickLogSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSearchView.swift; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */,
 				837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */,
 				958E22A5D59556BA4B881B8E /* LogCandidate.swift */,
+				6761B27EA60882DF4B12F464 /* Meal.swift */,
 				2B4661E6F3BE7E92C9B2F985 /* User.swift */,
 			);
 			path = Models;
@@ -449,6 +452,7 @@
 				A3F71F9ABE163FAB4E1B64AA /* MainTabView.swift in Sources */,
 				E98C6A0EC40366F5AEA0DB4E /* ManualEntryValidation.swift in Sources */,
 				373732863CE53F66EF2442A7 /* ManualEntryView.swift in Sources */,
+				A93FDD1D9C1C3E9C225F09A0 /* Meal.swift in Sources */,
 				4C9DD78C8F25FD1C8AB8D953 /* MealSectionView.swift in Sources */,
 				8EBB22AA91E8BD9F97711AD1 /* MealTimePickerSheet.swift in Sources */,
 				AA0970B847E239D4C0B5188C /* ModePickerSheet.swift in Sources */,

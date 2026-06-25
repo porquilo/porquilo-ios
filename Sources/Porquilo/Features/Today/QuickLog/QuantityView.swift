@@ -11,6 +11,7 @@ struct QuantityView: View {
     let candidate: LogCandidate
     @Binding var step: QuickLogStep
     let onLogged: () -> Void
+    @Environment(AppState.self) private var appState
 
     /// Mock conversion factors — real per-unit gram weights arrive with the
     /// nutrition API in a later session; these keep the live preview internally
@@ -22,19 +23,22 @@ struct QuantityView: View {
     @State private var quantity: Double = 1.0
     @State private var customText: String = ""
     @State private var eatenAt: Date = Date().roundedToNearest15Minutes()
-    @State private var mealSlot: MealSlot = MealSlot.inferred(from: Date())
+    @State private var meals: [Meal]
+    @State private var selectedMeal: Meal?
     @State private var showMealPicker: Bool = false
     @State private var isSubmitting: Bool = false
     @State private var submitError: String? = nil
     @FocusState private var isQuantityFieldFocused: Bool
 
-    private var isBarcode: Bool { candidate.sourceName == "Barcode" }
+    private var isBarcode: Bool { candidate.origin == .barcode }
 
-    init(candidate: LogCandidate, step: Binding<QuickLogStep>, onLogged: @escaping () -> Void) {
+    init(candidate: LogCandidate, meals: [Meal], step: Binding<QuickLogStep>, onLogged: @escaping () -> Void) {
         self.candidate = candidate
         self._step = step
         self.onLogged = onLogged
-        self._servingMode = State(initialValue: candidate.sourceName == "Barcode" ? .wholeItem : .per100g)
+        self._servingMode = State(initialValue: candidate.origin == .barcode ? .wholeItem : .per100g)
+        self._meals = State(initialValue: meals)
+        self._selectedMeal = State(initialValue: Meal.inferredDefault(from: meals, at: Date()))
     }
 
     var body: some View {
@@ -72,7 +76,15 @@ struct QuantityView: View {
             }
         }
         .sheet(isPresented: $showMealPicker) {
-            MealTimePickerSheet(mealSlot: $mealSlot, eatenAt: $eatenAt)
+            MealTimePickerSheet(meals: meals, selectedMeal: $selectedMeal, eatenAt: $eatenAt)
+        }
+        .task {
+            if meals.isEmpty {
+                meals = (try? await APIClient.shared.fetchMeals()) ?? []
+                if selectedMeal == nil {
+                    selectedMeal = Meal.inferredDefault(from: meals, at: eatenAt)
+                }
+            }
         }
     }
 
@@ -290,16 +302,6 @@ struct QuantityView: View {
 
     // MARK: - Macro math
 
-    /// Baseline calories per 100 g — derived from `calorieDisplay` when it carries a
-    /// number, otherwise a reasonable placeholder until real nutrition data is wired up.
-    private var baseCaloriesPer100g: Double {
-        let digits = candidate.result.calorieDisplay.split(separator: " ").first
-        if let digits, let value = Double(digits) {
-            return value
-        }
-        return 165
-    }
-
     private var gramsEquivalent: Double {
         switch servingMode {
         case .per100g, .custom: return quantity
@@ -309,12 +311,12 @@ struct QuantityView: View {
     }
 
     private var totalCalories: Double {
-        (baseCaloriesPer100g / 100) * gramsEquivalent
+        (candidate.result.caloriesPer100g / 100) * gramsEquivalent
     }
 
-    private var proteinGrams: Double { (totalCalories * 0.30) / 4 }
-    private var carbsGrams: Double { (totalCalories * 0.45) / 4 }
-    private var fatGrams: Double { (totalCalories * 0.25) / 9 }
+    private var proteinGrams: Double { (candidate.result.proteinPer100g / 100) * gramsEquivalent }
+    private var carbsGrams: Double { (candidate.result.carbsPer100g / 100) * gramsEquivalent }
+    private var fatGrams: Double { (candidate.result.fatPer100g / 100) * gramsEquivalent }
 
     private var macroPreviewCard: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -386,7 +388,7 @@ struct QuantityView: View {
                 Text("Adding to")
                     .font(.system(size: 14))
                     .foregroundStyle(DesignTokens.textSecondary)
-                Text(mealSlot.rawValue)
+                Text(selectedMeal?.name ?? "Meal")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(DesignTokens.textPrimary)
                 Text("·")
@@ -446,20 +448,29 @@ struct QuantityView: View {
     }
 
     private func submit() {
+        guard let selectedMeal else {
+            submitError = "No meal selected."
+            return
+        }
+
         isSubmitting = true
         submitError = nil
 
         Task {
             do {
-                _ = try await APIClient.shared.createLogEntry(
+                try await APIClient.shared.createLogEntry(
                     foodId: candidate.foodId,
-                    quantityG: gramsEquivalent,
-                    unit: unitLabel,
-                    mealSlot: mealSlot.rawValue.lowercased(),
-                    eatenAt: eatenAt
+                    mealId: selectedMeal.id,
+                    weightG: gramsEquivalent,
+                    eatenAt: eatenAt,
+                    weightSource: "estimated",
+                    inputMethod: isBarcode ? "quick_barcode" : "quick_search"
                 )
                 isSubmitting = false
                 onLogged()
+            } catch PorquiloAPIError.unauthorized {
+                isSubmitting = false
+                appState.signOut()
             } catch {
                 isSubmitting = false
                 submitError = error.localizedDescription

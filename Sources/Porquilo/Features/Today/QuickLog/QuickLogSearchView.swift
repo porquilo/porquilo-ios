@@ -5,27 +5,29 @@ struct QuickLogSearchView: View {
     @Binding var candidate: LogCandidate?
     @Binding var isOffline: Bool
     let onDismiss: () -> Void
+    @Environment(AppState.self) private var appState
 
     @State private var query: String = ""
     @State private var results: [FoodSearchResult] = []
     @State private var isLoading: Bool = false
+    @State private var searchErrorMessage: String? = nil
     @FocusState private var isSearchFieldFocused: Bool
     @State private var searchTask: Task<Void, Never>?
 
     private static let recentSamples: [FoodSearchResult] = [
-        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "Recently logged", calorieDisplay: "420 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Oat milk 1 cup", sourceName: "Pantry", subtitle: "Recently logged", calorieDisplay: "49 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Greek yogurt plain", sourceName: "USDA", subtitle: "Recently logged", calorieDisplay: "/100 g", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Brown rice cooked", sourceName: "USDA", subtitle: "Recently logged", calorieDisplay: "/100 g", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Banana raw", sourceName: "USDA", subtitle: "Recently logged", calorieDisplay: "/100 g", isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 420], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Oat milk 1 cup", sourceName: "Pantry", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 49], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Greek yogurt plain", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 97], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Brown rice cooked", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 112], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Banana raw", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 89], isTopMatch: false),
     ]
 
     private static let frequentSamples: [FoodSearchResult] = [
-        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "47 times logged", calorieDisplay: "420 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Oat milk", sourceName: "Pantry", subtitle: "31 times logged", calorieDisplay: "49 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Eggs scrambled", sourceName: "Pantry", subtitle: "24 times logged", calorieDisplay: "148 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Greek yogurt", sourceName: "Pantry", subtitle: "18 times logged", calorieDisplay: "100 kcal", isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Chicken salad wrap", sourceName: "Pantry", subtitle: "11 times logged", calorieDisplay: "410 kcal", isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "47 times logged", nutrientsPer100g: ["calories_kcal": 420], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Oat milk", sourceName: "Pantry", subtitle: "31 times logged", nutrientsPer100g: ["calories_kcal": 49], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Eggs scrambled", sourceName: "Pantry", subtitle: "24 times logged", nutrientsPer100g: ["calories_kcal": 148], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Greek yogurt", sourceName: "Pantry", subtitle: "18 times logged", nutrientsPer100g: ["calories_kcal": 100], isTopMatch: false),
+        FoodSearchResult(id: UUID(), name: "Chicken salad wrap", sourceName: "Pantry", subtitle: "11 times logged", nutrientsPer100g: ["calories_kcal": 410], isTopMatch: false),
     ]
 
     var body: some View {
@@ -38,6 +40,8 @@ struct QuickLogSearchView: View {
 
                 if isOffline {
                     offlineBanner
+                } else if let searchErrorMessage {
+                    errorBanner(searchErrorMessage)
                 }
 
                 ScrollView {
@@ -149,6 +153,24 @@ struct QuickLogSearchView: View {
         .padding(.bottom, 8)
     }
 
+    private func errorBanner(_ message: String) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 14))
+                .foregroundStyle(DesignTokens.dangerForeground)
+            Text(message)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundStyle(DesignTokens.dangerForeground)
+        }
+        .padding(.vertical, 9)
+        .padding(.horizontal, 12)
+        .background(DesignTokens.warningBackground)
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(DesignTokens.warningBorder, lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .padding(.horizontal, 16)
+        .padding(.bottom, 8)
+    }
+
     private var emptyStateContent: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 0) {
@@ -224,12 +246,18 @@ struct QuickLogSearchView: View {
                 guard !Task.isCancelled else { return }
                 results = response
                 isOffline = false
+                searchErrorMessage = nil
             } catch PorquiloAPIError.networkError(_), PorquiloAPIError.noServerConfigured {
                 guard !Task.isCancelled else { return }
                 isOffline = true
+                searchErrorMessage = nil
+            } catch PorquiloAPIError.unauthorized {
+                guard !Task.isCancelled else { return }
+                appState.signOut()
             } catch {
                 guard !Task.isCancelled else { return }
-                isOffline = true
+                isOffline = false
+                searchErrorMessage = "Something went wrong loading results."
             }
             isLoading = false
         }
