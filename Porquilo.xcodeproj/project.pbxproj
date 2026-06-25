@@ -10,6 +10,11 @@
 		6CCCF0CAAFB740B78BA451FB /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27382CBC3AA1437D930400D8 /* MainTabView.swift */; };
 		2F296C47CD204F5198FD9D46 /* PorquiloTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E4A793D36941C2B29F399F /* PorquiloTabBar.swift */; };
 		564AF7B61ACE4860902E94F9 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49A5573086F4651B3523319 /* TodayView.swift */; };
+		DF1AA4042E4A4A4AB6B20038 /* MacroBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4D22F5FF1446B3B8A1DAA9 /* MacroBarView.swift */; };
+		F286F97D38804CE293055A70 /* MealSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF608643F3E4B41A1BFE490 /* MealSectionView.swift */; };
+		2012D252E5074BC1B316AFD7 /* LogEntryRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5DFE7741F1D4EC8B6B55615 /* LogEntryRowView.swift */; };
+		AF6DAF2D7B5E429D9085007B /* ModePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBFF6B2C6244E999B05FF35 /* ModePickerSheet.swift */; };
+		C47A9073B51747EDB9F6DF6D /* DiaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E34E02318ED4807B361AFC7 /* DiaryModels.swift */; };
 		17B15D38ECA94D4D813F9E86 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2040099E041FD8FE551A0 /* LibraryView.swift */; };
 		A292643ED14C43A1B68F6BBC /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D65AC600787491B90B52A5B /* ReportsView.swift */; };
 		E81888E20EBD4F1DAD6B6FF9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31888467EBFB40678CE13AA1 /* SettingsView.swift */; };
@@ -59,6 +64,11 @@
 		27382CBC3AA1437D930400D8 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		A6E4A793D36941C2B29F399F /* PorquiloTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloTabBar.swift; sourceTree = "<group>"; };
 		F49A5573086F4651B3523319 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		5F4D22F5FF1446B3B8A1DAA9 /* MacroBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroBarView.swift; sourceTree = "<group>"; };
+		CFF608643F3E4B41A1BFE490 /* MealSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealSectionView.swift; sourceTree = "<group>"; };
+		D5DFE7741F1D4EC8B6B55615 /* LogEntryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntryRowView.swift; sourceTree = "<group>"; };
+		3DBFF6B2C6244E999B05FF35 /* ModePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModePickerSheet.swift; sourceTree = "<group>"; };
+		8E34E02318ED4807B361AFC7 /* DiaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryModels.swift; sourceTree = "<group>"; };
 		B0F2040099E041FD8FE551A0 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		9D65AC600787491B90B52A5B /* ReportsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportsView.swift; sourceTree = "<group>"; };
 		31888467EBFB40678CE13AA1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -134,6 +144,10 @@
 			isa = PBXGroup;
 			children = (
 				F49A5573086F4651B3523319 /* TodayView.swift */,
+				5F4D22F5FF1446B3B8A1DAA9 /* MacroBarView.swift */,
+				CFF608643F3E4B41A1BFE490 /* MealSectionView.swift */,
+				D5DFE7741F1D4EC8B6B55615 /* LogEntryRowView.swift */,
+				3DBFF6B2C6244E999B05FF35 /* ModePickerSheet.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -201,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2B4661E6F3BE7E92C9B2F985 /* User.swift */,
+				8E34E02318ED4807B361AFC7 /* DiaryModels.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -383,6 +398,11 @@
 				A292643ED14C43A1B68F6BBC /* ReportsView.swift in Sources */,
 				E81888E20EBD4F1DAD6B6FF9 /* SettingsView.swift in Sources */,
 				564AF7B61ACE4860902E94F9 /* TodayView.swift in Sources */,
+				DF1AA4042E4A4A4AB6B20038 /* MacroBarView.swift in Sources */,
+				F286F97D38804CE293055A70 /* MealSectionView.swift in Sources */,
+				2012D252E5074BC1B316AFD7 /* LogEntryRowView.swift in Sources */,
+				AF6DAF2D7B5E429D9085007B /* ModePickerSheet.swift in Sources */,
+				C47A9073B51747EDB9F6DF6D /* DiaryModels.swift in Sources */,
 				F81D5E99A31C00C8C138A2BD /* User.swift in Sources */,
 				87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */,
 				CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */,
