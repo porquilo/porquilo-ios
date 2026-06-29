@@ -32,6 +32,15 @@ enum MealSlot: String, CaseIterable {
         default: return .snack
         }
     }
+
+    var wireValue: String {
+        switch self {
+        case .breakfast: return "breakfast"
+        case .lunch: return "lunch"
+        case .dinner: return "dinner"
+        case .snack: return "snack"
+        }
+    }
 }
 
 struct MealSection: Identifiable {

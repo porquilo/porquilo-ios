@@ -26,6 +26,7 @@
 		642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */; };
 		6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2311B14CFE001E1925583C /* DateRounding.swift */; };
 		72F9500D8BED2456F7C90903 /* QuickLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */; };
+		7817ECEE53AB8370B6E9E2EA /* DiaryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */; };
 		7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53147222241CF2D5CFEE495E /* QRPairingPayload.swift */; };
 		8605B92DDDEC74ACA48C68B7 /* MacroBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */; };
 		87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */; };
@@ -133,6 +134,7 @@
 		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
 		FC2311B14CFE001E1925583C /* DateRounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRounding.swift; sourceTree = "<group>"; };
 		FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogView.swift; sourceTree = "<group>"; };
+		FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -265,6 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */,
+				FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */,
 				837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */,
 				958E22A5D59556BA4B881B8E /* LogCandidate.swift */,
 				6761B27EA60882DF4B12F464 /* Meal.swift */,
@@ -445,6 +448,7 @@
 				6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */,
 				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
 				642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */,
+				7817ECEE53AB8370B6E9E2EA /* DiaryResponse.swift in Sources */,
 				485E6DE9D28CB8F69655B0BD /* FoodSearchResult.swift in Sources */,
 				B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */,
 				F84E3B0FE43CA9324CFAA174 /* LibraryView.swift in Sources */,

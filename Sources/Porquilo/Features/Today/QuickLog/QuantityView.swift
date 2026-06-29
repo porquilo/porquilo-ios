@@ -464,7 +464,7 @@ struct QuantityView: View {
                     weightG: gramsEquivalent,
                     eatenAt: eatenAt,
                     weightSource: "estimated",
-                    inputMethod: isBarcode ? "quick_barcode" : "quick_search"
+                    inputMethod: isBarcode ? "quick_barcode" : "quick_log"
                 )
                 isSubmitting = false
                 onLogged()

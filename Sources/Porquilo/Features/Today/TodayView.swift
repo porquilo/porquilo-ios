@@ -1,10 +1,16 @@
 import SwiftUI
 
+enum DiaryLoadState {
+    case loading
+    case loaded(DiaryDay)
+    case failed
+}
+
 struct TodayView: View {
     @State private var displayedDate: Date = Date()
     @State private var showModePicker: Bool = false
     @State private var showQuickLog: Bool = false
-    @State private var diary: DiaryDay = .sample
+    @State private var loadState: DiaryLoadState = .loading
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -13,22 +19,12 @@ struct TodayView: View {
             VStack(spacing: 0) {
                 dateHeader
 
-                ScrollView {
-                    VStack(spacing: 16) {
-                        MacroBarView(total: diary.macroTotal)
-
-                        ForEach(diary.meals) { section in
-                            MealSectionView(section: section, onAddFood: { showModePicker = true })
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 12)
-                    .padding(.bottom, 130)
-                }
+                content
             }
 
             fab
         }
+        .task(id: displayedDate) { await loadDiary() }
         .sheet(isPresented: $showModePicker) {
             ModePickerSheet(onQuickLogTapped: {
                 showModePicker = false
@@ -38,8 +34,46 @@ struct TodayView: View {
         .fullScreenCover(isPresented: $showQuickLog) {
             QuickLogView(
                 onDismiss: { showQuickLog = false },
-                onLogged: { refreshDiary() }
+                onLogged: { Task { await loadDiary() } }
             )
+        }
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch loadState {
+        case .loading:
+            ProgressView()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .tint(DesignTokens.accent)
+
+        case .loaded(let diary):
+            ScrollView {
+                VStack(spacing: 16) {
+                    MacroBarView(total: diary.macroTotal)
+
+                    ForEach(diary.meals) { section in
+                        MealSectionView(section: section, onAddFood: { showModePicker = true })
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+                .padding(.bottom, 130)
+            }
+
+        case .failed:
+            VStack(spacing: 16) {
+                Image(systemName: "exclamationmark.triangle")
+                    .font(.system(size: 32))
+                    .foregroundStyle(DesignTokens.textMuted)
+                Text("Couldn't load diary.")
+                    .font(Font.porqBody)
+                    .foregroundStyle(DesignTokens.textSecondary)
+                Button("Try again") { Task { await loadDiary() } }
+                    .font(Font.porqBody)
+                    .foregroundStyle(DesignTokens.accent)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
@@ -108,10 +142,14 @@ struct TodayView: View {
         .padding(.bottom, 110)
     }
 
-    /// Resets to the static sample diary — a real fetch replaces this once the
-    /// diary read endpoint lands in a later session.
-    private func refreshDiary() {
-        diary = .sample
+    private func loadDiary() async {
+        loadState = .loading
+        do {
+            let diary = try await APIClient.shared.fetchDiary(for: displayedDate)
+            loadState = .loaded(diary)
+        } catch {
+            loadState = .failed
+        }
     }
 
     private var formattedDate: String {

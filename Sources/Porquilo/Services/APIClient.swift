@@ -323,6 +323,62 @@ final class APIClient {
         return try await request("api/entries", method: "POST", body: body)
     }
 
+    /// `GET /api/diary/{date}` — `date` is formatted "YYYY-MM-DD" in the user's
+    /// current calendar. 404 means an empty diary day, not an error.
+    func fetchDiary(for date: Date) async throws -> DiaryDay {
+        guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = .current
+        formatter.timeZone = .current
+        let dateString = formatter.string(from: date)
+
+        let request = Self.buildRequest(
+            url: baseURL.appendingPathComponent("api/diary/\(dateString)"),
+            method: "GET",
+            body: nil,
+            authToken: KeychainService.load()
+        )
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw PorquiloAPIError.networkError(error)
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw PorquiloAPIError.networkError(URLError(.badServerResponse))
+        }
+
+        if httpResponse.statusCode == 401 {
+            throw PorquiloAPIError.unauthorized
+        }
+
+        if httpResponse.statusCode == 404 {
+            return DiaryDay(
+                date: date,
+                macroTotal: MacroTotal(calories: 0, proteinG: 0, carbsG: 0, fatG: 0, isEstimated: false),
+                meals: MealSlot.allCases.map { MealSection(slot: $0, entries: []) }
+            )
+        }
+
+        if !(200..<300).contains(httpResponse.statusCode) {
+            throw Self.serverError(from: data)
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .iso8601
+        do {
+            let dto = try decoder.decode(DiaryResponse.self, from: data)
+            return dto.toDiaryDay(on: date)
+        } catch {
+            throw PorquiloAPIError.decodingError(error)
+        }
+    }
+
     func fetchServerVersion() async throws -> String {
         guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
         let request = Self.buildRequest(
