@@ -233,13 +233,29 @@ final class APIClient {
         body: (any Encodable)? = nil
     ) async throws -> T {
         guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        guard let url = Self.buildURL(baseURL: baseURL, path: path) else {
+            throw PorquiloAPIError.noServerConfigured
+        }
         let request = Self.buildRequest(
-            url: baseURL.appendingPathComponent(path),
+            url: url,
             method: method,
             body: body,
             authToken: KeychainService.load()
         )
         return try await Self.perform(request)
+    }
+
+    /// `appendingPathComponent` percent-encodes the entire string it's given as a
+    /// single path segment — including a literal `?`, turning `api/foods?q=x` into
+    /// the path `api/foods%3Fq=x` instead of a path with a query string. Split the
+    /// query off before appending so callers can keep passing `"path?query"`.
+    private static func buildURL(baseURL: URL, path: String) -> URL? {
+        let parts = path.split(separator: "?", maxSplits: 1)
+        let url = baseURL.appendingPathComponent(String(parts[0]))
+        guard parts.count > 1 else { return url }
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        components?.percentEncodedQuery = String(parts[1])
+        return components?.url ?? url
     }
 
     /// Builds its request from the passed-in `serverURL`, not the stored `baseURL` —

@@ -116,6 +116,7 @@
 		AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroBarView.swift; sourceTree = "<group>"; };
 		B2F3144B071E68F342CD9B05 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		B4C0AA51469CA96941A741E9 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
+		BE757BA02003E34A7435ABF1 /* Porquilo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Porquilo.entitlements; sourceTree = "<group>"; };
 		BFE8D139967FE89665CBA07B /* LogEntryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntryRowView.swift; sourceTree = "<group>"; };
 		C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidationTests.swift; sourceTree = "<group>"; };
 		C62FC2B48F0C25B6C748243A /* Geist[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geist[wght].ttf"; sourceTree = "<group>"; };
@@ -151,6 +152,7 @@
 				F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */,
 				01847F4B4B042861DEB105F8 /* Info.plist */,
 				12A9F4633F07B8AA914D47B6 /* MainTabView.swift */,
+				BE757BA02003E34A7435ABF1 /* Porquilo.entitlements */,
 				9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */,
 			);
 			path = App;
@@ -387,6 +389,7 @@
 				TargetAttributes = {
 					72020F1B52AB45FF63C7BF48 = {
 						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -504,10 +507,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Sources/Porquilo/App/Porquilo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				ENTITLEMENTS_ALLOWED = YES;
+				ENTITLEMENTS_REQUIRED = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
@@ -527,10 +534,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Sources/Porquilo/App/Porquilo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				ENTITLEMENTS_ALLOWED = YES;
+				ENTITLEMENTS_REQUIRED = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
