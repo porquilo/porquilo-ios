@@ -4,7 +4,7 @@ struct TodayView: View {
     @State private var displayedDate: Date = Date()
     @State private var showModePicker: Bool = false
     @State private var showQuickLog: Bool = false
-    private let diary: DiaryDay = .sample
+    @State private var diary: DiaryDay = .sample
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -36,7 +36,10 @@ struct TodayView: View {
             })
         }
         .fullScreenCover(isPresented: $showQuickLog) {
-            QuickLogView(onDismiss: { showQuickLog = false })
+            QuickLogView(
+                onDismiss: { showQuickLog = false },
+                onLogged: { refreshDiary() }
+            )
         }
     }
 
@@ -103,6 +106,12 @@ struct TodayView: View {
         .buttonStyle(.plain)
         .padding(.trailing, 20)
         .padding(.bottom, 110)
+    }
+
+    /// Resets to the static sample diary — a real fetch replaces this once the
+    /// diary read endpoint lands in a later session.
+    private func refreshDiary() {
+        diary = .sample
     }
 
     private var formattedDate: String {

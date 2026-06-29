@@ -15,7 +15,12 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.porquilo.app
         DEVELOPMENT_TEAM: ""
         CODE_SIGNING_REQUIRED: NO
-        CODE_SIGNING_ALLOWED: NO
+        CODE_SIGNING_ALLOWED: YES
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        ENTITLEMENTS_ALLOWED: YES
+        ENTITLEMENTS_REQUIRED: YES
+        CODE_SIGN_ENTITLEMENTS: Sources/Porquilo/App/Porquilo.entitlements
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_NSCameraUsageDescription: "Porquilo uses the camera to scan pairing QR codes."

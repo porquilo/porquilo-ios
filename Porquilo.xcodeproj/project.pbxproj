@@ -22,17 +22,21 @@
 		50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */; };
 		54982FC8BA1E0F51A7394B82 /* PorquiloTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD118B487776AF58236396 /* PorquiloTabBar.swift */; };
 		565CA93CA11DF5613CC737DF /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F94647827CBB4941F35984A /* CameraPreviewView.swift */; };
+		57C6533FB105E2590831CEE0 /* QuantityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31677157AD3284BDE4E84C01 /* QuantityView.swift */; };
 		642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */; };
+		6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2311B14CFE001E1925583C /* DateRounding.swift */; };
 		72F9500D8BED2456F7C90903 /* QuickLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */; };
 		7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53147222241CF2D5CFEE495E /* QRPairingPayload.swift */; };
 		8605B92DDDEC74ACA48C68B7 /* MacroBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */; };
 		87C651556C1BC3A79BE99325 /* VersionWarningSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */; };
 		881AC30F5456D44EC56F1EFF /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09705A7910779DBF3CF02934 /* QRScannerView.swift */; };
+		8EBB22AA91E8BD9F97711AD1 /* MealTimePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */; };
 		8F9F6F49796085DBEAEB6F01 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E8C27F0E915EA56301ABC /* ReportsView.swift */; };
 		911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */; };
 		A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */; };
 		A3F71F9ABE163FAB4E1B64AA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9F4633F07B8AA914D47B6 /* MainTabView.swift */; };
 		A87920410E8F7E48087BA391 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DD1537F1B5ED000C3CAD66 /* SettingsView.swift */; };
+		A93FDD1D9C1C3E9C225F09A0 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6761B27EA60882DF4B12F464 /* Meal.swift */; };
 		AA0970B847E239D4C0B5188C /* ModePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065AE102AF43729E58B38B5D /* ModePickerSheet.swift */; };
 		AB583BA4BC8BA502A2251B25 /* LogCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E22A5D59556BA4B881B8E /* LogCandidate.swift */; };
 		B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */; };
@@ -49,7 +53,9 @@
 		EA3AF8B2175B7FDB45C65553 /* QRPairingPayloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */; };
 		EAE4BC1E44317C5B7CF2F89A /* AuthScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */; };
 		EC0D2C9A967087EB58333FE4 /* LogoMarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */; };
+		ECA37ACC60CDB74C808400DA /* CreateLogEntryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50A96AF4BA11AC7C352F576 /* CreateLogEntryTests.swift */; };
 		EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED9755E72682009A382F0050 /* APIClientTests.swift */; };
+		EFCD216A62C615CFEDE8C2E2 /* MealTimeUtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92CB49C97D0AE476378CC4C /* MealTimeUtilitiesTests.swift */; };
 		F144ADF4AF5F63BF014EAD6E /* AuthRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918AEAD092391B9A0C5B926A /* AuthRootView.swift */; };
 		F4C8495137B7FADA649F13B8 /* Newsreader-VariableFont_opsz,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C96DF55223B2A2B6073240A5 /* Newsreader-VariableFont_opsz,wght.ttf */; };
 		F668444272A6FD723A6CB76B /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBF7FEB140462BD4BDE29C4 /* TodayView.swift */; };
@@ -80,6 +86,7 @@
 		27AA3B41E9EF7C750F51A443 /* AuthScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthScreen.swift; sourceTree = "<group>"; };
 		2B4661E6F3BE7E92C9B2F985 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2D5123A3A2FC5424513639BB /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		31677157AD3284BDE4E84C01 /* QuantityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityView.swift; sourceTree = "<group>"; };
 		3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryModels.swift; sourceTree = "<group>"; };
 		4036A02656B05DBD4FAFAF98 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PorquiloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,11 +94,13 @@
 		53147222241CF2D5CFEE495E /* QRPairingPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayload.swift; sourceTree = "<group>"; };
 		5EBF7FEB140462BD4BDE29C4 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		6250AB67C83EF7BDBEBE098E /* Porquilo.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Porquilo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6761B27EA60882DF4B12F464 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		76AD118B487776AF58236396 /* PorquiloTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloTabBar.swift; sourceTree = "<group>"; };
 		77533196A0685995D42FE858 /* QuickLogSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSearchView.swift; sourceTree = "<group>"; };
 		78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionWarningSheet.swift; sourceTree = "<group>"; };
 		79768B5CD89429FAED3522DF /* BarcodeScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScanView.swift; sourceTree = "<group>"; };
+		7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimePickerSheet.swift; sourceTree = "<group>"; };
 		7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidation.swift; sourceTree = "<group>"; };
 		837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearchResult.swift; sourceTree = "<group>"; };
 		8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
@@ -107,9 +116,11 @@
 		AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroBarView.swift; sourceTree = "<group>"; };
 		B2F3144B071E68F342CD9B05 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		B4C0AA51469CA96941A741E9 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
+		BE757BA02003E34A7435ABF1 /* Porquilo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Porquilo.entitlements; sourceTree = "<group>"; };
 		BFE8D139967FE89665CBA07B /* LogEntryRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntryRowView.swift; sourceTree = "<group>"; };
 		C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidationTests.swift; sourceTree = "<group>"; };
 		C62FC2B48F0C25B6C748243A /* Geist[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Geist[wght].ttf"; sourceTree = "<group>"; };
+		C92CB49C97D0AE476378CC4C /* MealTimeUtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimeUtilitiesTests.swift; sourceTree = "<group>"; };
 		C96DF55223B2A2B6073240A5 /* Newsreader-VariableFont_opsz,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Newsreader-VariableFont_opsz,wght.ttf"; sourceTree = "<group>"; };
 		CC82133BF89E7DA3BA9D2861 /* GeistMono[wght].ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GeistMono[wght].ttf"; sourceTree = "<group>"; };
 		D5401332ADEB9D9422C6721D /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -117,8 +128,10 @@
 		E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCaptureCoordinator.swift; sourceTree = "<group>"; };
 		ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogCandidateTests.swift; sourceTree = "<group>"; };
 		ED9755E72682009A382F0050 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
+		F50A96AF4BA11AC7C352F576 /* CreateLogEntryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLogEntryTests.swift; sourceTree = "<group>"; };
 		F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRErrorView.swift; sourceTree = "<group>"; };
+		FC2311B14CFE001E1925583C /* DateRounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRounding.swift; sourceTree = "<group>"; };
 		FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +152,7 @@
 				F6D0DAEAA89EA890C9E4A1ED /* AppState.swift */,
 				01847F4B4B042861DEB105F8 /* Info.plist */,
 				12A9F4633F07B8AA914D47B6 /* MainTabView.swift */,
+				BE757BA02003E34A7435ABF1 /* Porquilo.entitlements */,
 				9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */,
 			);
 			path = App;
@@ -230,6 +244,8 @@
 			children = (
 				50C626991C79F89C1838D15B /* BarcodeNotFoundView.swift */,
 				79768B5CD89429FAED3522DF /* BarcodeScanView.swift */,
+				7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */,
+				31677157AD3284BDE4E84C01 /* QuantityView.swift */,
 				77533196A0685995D42FE858 /* QuickLogSearchView.swift */,
 				FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */,
 			);
@@ -251,6 +267,7 @@
 				3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */,
 				837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */,
 				958E22A5D59556BA4B881B8E /* LogCandidate.swift */,
+				6761B27EA60882DF4B12F464 /* Meal.swift */,
 				2B4661E6F3BE7E92C9B2F985 /* User.swift */,
 			);
 			path = Models;
@@ -261,9 +278,11 @@
 			children = (
 				ED9755E72682009A382F0050 /* APIClientTests.swift */,
 				8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */,
+				F50A96AF4BA11AC7C352F576 /* CreateLogEntryTests.swift */,
 				71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */,
 				ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */,
 				C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */,
+				C92CB49C97D0AE476378CC4C /* MealTimeUtilitiesTests.swift */,
 				9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */,
 			);
 			name = PorquiloTests;
@@ -298,6 +317,7 @@
 		E2F798E52D3DC5E9E86F412D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FC2311B14CFE001E1925583C /* DateRounding.swift */,
 				B2F3144B071E68F342CD9B05 /* DesignTokens.swift */,
 			);
 			path = Utilities;
@@ -369,6 +389,7 @@
 				TargetAttributes = {
 					72020F1B52AB45FF63C7BF48 = {
 						DevelopmentTeam = "";
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -421,6 +442,7 @@
 				A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */,
 				0E55265B670AEE66F3EF9026 /* ConnectingRequest.swift in Sources */,
 				E4F645439EAA76BABDCDCC65 /* ConnectingView.swift in Sources */,
+				6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */,
 				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
 				642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */,
 				485E6DE9D28CB8F69655B0BD /* FoodSearchResult.swift in Sources */,
@@ -433,7 +455,9 @@
 				A3F71F9ABE163FAB4E1B64AA /* MainTabView.swift in Sources */,
 				E98C6A0EC40366F5AEA0DB4E /* ManualEntryValidation.swift in Sources */,
 				373732863CE53F66EF2442A7 /* ManualEntryView.swift in Sources */,
+				A93FDD1D9C1C3E9C225F09A0 /* Meal.swift in Sources */,
 				4C9DD78C8F25FD1C8AB8D953 /* MealSectionView.swift in Sources */,
+				8EBB22AA91E8BD9F97711AD1 /* MealTimePickerSheet.swift in Sources */,
 				AA0970B847E239D4C0B5188C /* ModePickerSheet.swift in Sources */,
 				911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */,
 				54982FC8BA1E0F51A7394B82 /* PorquiloTabBar.swift in Sources */,
@@ -441,6 +465,7 @@
 				50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */,
 				7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */,
 				881AC30F5456D44EC56F1EFF /* QRScannerView.swift in Sources */,
+				57C6533FB105E2590831CEE0 /* QuantityView.swift in Sources */,
 				3C861F862170A6A88CF292B3 /* QuickLogSearchView.swift in Sources */,
 				72F9500D8BED2456F7C90903 /* QuickLogView.swift in Sources */,
 				8F9F6F49796085DBEAEB6F01 /* ReportsView.swift in Sources */,
@@ -458,9 +483,11 @@
 			files = (
 				EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */,
 				C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */,
+				ECA37ACC60CDB74C808400DA /* CreateLogEntryTests.swift in Sources */,
 				DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */,
 				DBB8E1C4256EAB0DA35FE710 /* LogCandidateTests.swift in Sources */,
 				E8C24CBAE490490B60D14E61 /* ManualEntryValidationTests.swift in Sources */,
+				EFCD216A62C615CFEDE8C2E2 /* MealTimeUtilitiesTests.swift in Sources */,
 				EA3AF8B2175B7FDB45C65553 /* QRPairingPayloadTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,10 +507,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Sources/Porquilo/App/Porquilo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				ENTITLEMENTS_ALLOWED = YES;
+				ENTITLEMENTS_REQUIRED = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
@@ -503,10 +534,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_ENTITLEMENTS = Sources/Porquilo/App/Porquilo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
+				ENTITLEMENTS_ALLOWED = YES;
+				ENTITLEMENTS_REQUIRED = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Sources/Porquilo/App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Porquilo uses the camera to scan pairing QR codes.";
