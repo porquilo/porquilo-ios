@@ -57,8 +57,7 @@ extension DiaryResponse {
                     isEstimated: entry.weightConfidence != "measured"
                 )
             }
-            let slot = MealSlot(rawValue: meal.mealName) ?? .snack
-            return MealSection(slot: slot, entries: entries)
+            return MealSection(id: meal.mealId, name: meal.mealName, entries: entries)
         }
 
         return DiaryDay(

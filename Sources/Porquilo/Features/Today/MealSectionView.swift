@@ -7,7 +7,7 @@ struct MealSectionView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Text(section.slot.rawValue)
+                Text(section.name)
                     .font(.custom("Newsreader", size: 18))
                     .italic()
                     .tracking(-0.01 * 18)

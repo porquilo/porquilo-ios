@@ -57,7 +57,7 @@ final class APIClientTests: XCTestCase {
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
-        let breakfast = diaryDay.meals.first { $0.slot == .breakfast }
+        let breakfast = diaryDay.meals.first { $0.name == "Breakfast" }
         XCTAssertEqual(breakfast?.entries.first?.isEstimated, false)
     }
 
@@ -94,7 +94,7 @@ final class APIClientTests: XCTestCase {
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
-        let breakfast = diaryDay.meals.first { $0.slot == .breakfast }
+        let breakfast = diaryDay.meals.first { $0.name == "Breakfast" }
         XCTAssertEqual(breakfast?.entries.first?.isEstimated, true)
     }
 
@@ -190,8 +190,7 @@ final class APIClientTests: XCTestCase {
         let diaryDay = try await APIClient.shared.fetchDiary(for: Date())
 
         XCTAssertEqual(diaryDay.macroTotal.calories, 0)
-        XCTAssertEqual(diaryDay.meals.count, MealSlot.allCases.count)
-        XCTAssertTrue(diaryDay.meals.allSatisfy { $0.entries.isEmpty })
+        XCTAssertTrue(diaryDay.meals.isEmpty)
     }
 }
 

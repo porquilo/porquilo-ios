@@ -396,7 +396,7 @@ final class APIClient {
             return DiaryDay(
                 date: date,
                 macroTotal: MacroTotal(calories: 0, proteinG: 0, carbsG: 0, fatG: 0, isEstimated: false),
-                meals: MealSlot.allCases.map { MealSection(slot: $0, entries: []) }
+                meals: []
             )
         }
 
