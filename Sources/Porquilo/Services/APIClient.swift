@@ -1,5 +1,44 @@
 import Foundation
 
+/// The server sends `eaten_at` in several shapes depending on the path:
+/// Pydantic serializes timezone-aware `datetime` fields with microsecond
+/// fractional seconds and an offset (`2026-06-24T07:30:00.123456+00:00`),
+/// but SQLite drops tzinfo on round-trip, so `GET /api/diary/{date}` comes
+/// back with no offset at all (`2026-06-29T09:29:00`). Entries are always
+/// POSTed in UTC (`CreateLogEntryBody` uses `ISO8601DateFormatter`'s UTC
+/// default), so a naive string is treated as UTC.
+///
+/// A free function (rather than a type method) so it satisfies `@Sendable`
+/// for `JSONDecoder.DateDecodingStrategy.custom` without a conversion warning.
+@Sendable func decodeServerDate(from decoder: Decoder) throws -> Date {
+    let container = try decoder.singleValueContainer()
+    let string = try container.decode(String.self)
+
+    let withFractional = ISO8601DateFormatter()
+    withFractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+    if let date = withFractional.date(from: string) {
+        return date
+    }
+
+    let plain = ISO8601DateFormatter()
+    plain.formatOptions = [.withInternetDateTime]
+    if let date = plain.date(from: string) {
+        return date
+    }
+
+    let naive = DateFormatter()
+    naive.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+    naive.timeZone = TimeZone(identifier: "UTC")
+    if let date = naive.date(from: string) {
+        return date
+    }
+
+    throw DecodingError.dataCorruptedError(
+        in: container,
+        debugDescription: "Expected date string to be ISO8601-formatted: \(string)"
+    )
+}
+
 enum PorquiloAPIError: Error, LocalizedError {
     case serverError(code: String, message: String)
     case networkError(Error)
@@ -321,6 +360,62 @@ final class APIClient {
             inputMethod: inputMethod
         )
         return try await request("api/entries", method: "POST", body: body)
+    }
+
+    /// `GET /api/diary/{date}` — `date` is formatted "YYYY-MM-DD" in the user's
+    /// current calendar. 404 means an empty diary day, not an error.
+    func fetchDiary(for date: Date) async throws -> DiaryDay {
+        guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = .current
+        formatter.timeZone = .current
+        let dateString = formatter.string(from: date)
+
+        let request = Self.buildRequest(
+            url: baseURL.appendingPathComponent("api/diary/\(dateString)"),
+            method: "GET",
+            body: nil,
+            authToken: KeychainService.load()
+        )
+
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw PorquiloAPIError.networkError(error)
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw PorquiloAPIError.networkError(URLError(.badServerResponse))
+        }
+
+        if httpResponse.statusCode == 401 {
+            throw PorquiloAPIError.unauthorized
+        }
+
+        if httpResponse.statusCode == 404 {
+            return DiaryDay(
+                date: date,
+                macroTotal: MacroTotal(calories: 0, proteinG: 0, carbsG: 0, fatG: 0, isEstimated: false),
+                meals: []
+            )
+        }
+
+        if !(200..<300).contains(httpResponse.statusCode) {
+            throw Self.serverError(from: data)
+        }
+
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .custom(decodeServerDate)
+        do {
+            let dto = try decoder.decode(DiaryResponse.self, from: data)
+            return dto.toDiaryDay(on: date)
+        } catch {
+            throw PorquiloAPIError.decodingError(error)
+        }
     }
 
     func fetchServerVersion() async throws -> String {
