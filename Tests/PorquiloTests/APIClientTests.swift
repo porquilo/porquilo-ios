@@ -53,7 +53,7 @@ final class APIClientTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        decoder.dateDecodingStrategy = .custom(decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
@@ -90,7 +90,7 @@ final class APIClientTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        decoder.dateDecodingStrategy = .custom(decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
@@ -127,7 +127,7 @@ final class APIClientTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        decoder.dateDecodingStrategy = .custom(decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
 
         let eatenAt = try XCTUnwrap(dto.meals.first?.entries.first?.eatenAt)
@@ -163,7 +163,7 @@ final class APIClientTests: XCTestCase {
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        decoder.dateDecodingStrategy = .custom(decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
 
         let eatenAt = try XCTUnwrap(dto.meals.first?.entries.first?.eatenAt)
