@@ -220,6 +220,42 @@ final class APIClient {
         )
     }
 
+    /// The server sends `eaten_at` in several shapes depending on the path:
+    /// Pydantic serializes timezone-aware `datetime` fields with microsecond
+    /// fractional seconds and an offset (`2026-06-24T07:30:00.123456+00:00`),
+    /// but SQLite drops tzinfo on round-trip, so `GET /api/diary/{date}` comes
+    /// back with no offset at all (`2026-06-29T09:29:00`). Entries are always
+    /// POSTed in UTC (`CreateLogEntryBody` uses `ISO8601DateFormatter`'s UTC
+    /// default), so a naive string is treated as UTC.
+    static func decodeServerDate(from decoder: Decoder) throws -> Date {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+
+        let withFractional = ISO8601DateFormatter()
+        withFractional.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = withFractional.date(from: string) {
+            return date
+        }
+
+        let plain = ISO8601DateFormatter()
+        plain.formatOptions = [.withInternetDateTime]
+        if let date = plain.date(from: string) {
+            return date
+        }
+
+        let naive = DateFormatter()
+        naive.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        naive.timeZone = TimeZone(identifier: "UTC")
+        if let date = naive.date(from: string) {
+            return date
+        }
+
+        throw DecodingError.dataCorruptedError(
+            in: container,
+            debugDescription: "Expected date string to be ISO8601-formatted: \(string)"
+        )
+    }
+
     static func serverError(from data: Data) -> PorquiloAPIError {
         if let envelope = try? JSONDecoder().decode(ErrorEnvelope.self, from: data) {
             return .serverError(code: envelope.error.code, message: envelope.error.message)
@@ -370,7 +406,7 @@ final class APIClient {
 
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom(Self.decodeServerDate)
         do {
             let dto = try decoder.decode(DiaryResponse.self, from: data)
             return dto.toDiaryDay(on: date)

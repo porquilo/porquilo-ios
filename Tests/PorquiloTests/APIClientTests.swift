@@ -24,31 +24,36 @@ final class APIClientTests: XCTestCase {
         XCTAssertNotEqual(PorquiloAPIError.notFound, PorquiloAPIError.unauthorized)
     }
 
-    func testDiaryEntryScaleSourceIsNotEstimated() throws {
+    func testDiaryEntryMeasuredConfidenceIsNotEstimated() throws {
         let json = """
         {
             "date": "2026-06-24",
-            "macro_total": {"calories": 100, "protein_g": 1, "carbs_g": 1, "fat_g": 1},
-            "entries": [
+            "day_totals": {"calories_kcal": "100", "protein_g": "1", "carbs_g": "1", "fat_g": "1"},
+            "has_estimated_entries": false,
+            "meals": [
                 {
-                    "id": "\(UUID().uuidString)",
-                    "food_id": "\(UUID().uuidString)",
-                    "food_name": "Chicken",
-                    "quantity_g": 100,
-                    "calories": 100,
-                    "protein_g": 1,
-                    "carbs_g": 1,
-                    "fat_g": 1,
-                    "weight_source": "scale",
-                    "eaten_at": "2026-06-24T07:30:00Z",
-                    "meal_slot": "breakfast"
+                    "meal_id": "\(UUID().uuidString)",
+                    "meal_name": "Breakfast",
+                    "is_skipped": false,
+                    "meal_totals": {"calories_kcal": "100"},
+                    "entries": [
+                        {
+                            "id": "\(UUID().uuidString)",
+                            "food_name": "Chicken",
+                            "weight_g": "100",
+                            "weight_confidence": "measured",
+                            "input_method": "manual",
+                            "eaten_at": "2026-06-24T07:30:00Z",
+                            "nutrients": {"calories_kcal": {"value": "100", "coverage": "full"}}
+                        }
+                    ]
                 }
             ]
         }
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
@@ -56,36 +61,113 @@ final class APIClientTests: XCTestCase {
         XCTAssertEqual(breakfast?.entries.first?.isEstimated, false)
     }
 
-    func testDiaryEntryNonScaleSourceIsEstimated() throws {
+    func testDiaryEntryEstimatedConfidenceIsEstimated() throws {
         let json = """
         {
             "date": "2026-06-24",
-            "macro_total": {"calories": 100, "protein_g": 1, "carbs_g": 1, "fat_g": 1},
-            "entries": [
+            "day_totals": {"calories_kcal": "100", "protein_g": "1", "carbs_g": "1", "fat_g": "1"},
+            "has_estimated_entries": true,
+            "meals": [
                 {
-                    "id": "\(UUID().uuidString)",
-                    "food_id": "\(UUID().uuidString)",
-                    "food_name": "Chicken",
-                    "quantity_g": 100,
-                    "calories": 100,
-                    "protein_g": 1,
-                    "carbs_g": 1,
-                    "fat_g": 1,
-                    "weight_source": "quick_log",
-                    "eaten_at": "2026-06-24T07:30:00Z",
-                    "meal_slot": "breakfast"
+                    "meal_id": "\(UUID().uuidString)",
+                    "meal_name": "Breakfast",
+                    "is_skipped": false,
+                    "meal_totals": {"calories_kcal": "100"},
+                    "entries": [
+                        {
+                            "id": "\(UUID().uuidString)",
+                            "food_name": "Chicken",
+                            "weight_g": "100",
+                            "weight_confidence": "estimated",
+                            "input_method": "quick_log",
+                            "eaten_at": "2026-06-24T07:30:00Z",
+                            "nutrients": {"calories_kcal": {"value": "100", "coverage": "full"}}
+                        }
+                    ]
                 }
             ]
         }
         """
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
         let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
         let diaryDay = dto.toDiaryDay(on: Date())
 
         let breakfast = diaryDay.meals.first { $0.slot == .breakfast }
         XCTAssertEqual(breakfast?.entries.first?.isEstimated, true)
+    }
+
+    func testDecodeServerDateAcceptsFractionalSeconds() throws {
+        let json = """
+        {
+            "date": "2026-06-24",
+            "day_totals": {},
+            "has_estimated_entries": false,
+            "meals": [
+                {
+                    "meal_id": "\(UUID().uuidString)",
+                    "meal_name": "Breakfast",
+                    "is_skipped": false,
+                    "meal_totals": {},
+                    "entries": [
+                        {
+                            "id": "\(UUID().uuidString)",
+                            "food_name": "Chicken",
+                            "weight_g": "100",
+                            "weight_confidence": "measured",
+                            "input_method": "manual",
+                            "eaten_at": "2026-06-24T07:30:00.123456+00:00",
+                            "nutrients": {}
+                        }
+                    ]
+                }
+            ]
+        }
+        """
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
+
+        let eatenAt = try XCTUnwrap(dto.meals.first?.entries.first?.eatenAt)
+        XCTAssertEqual(eatenAt.timeIntervalSince1970, 1782286200.123456, accuracy: 0.001)
+    }
+
+    func testDecodeServerDateAcceptsNaiveTimestamp() throws {
+        let json = """
+        {
+            "date": "2026-06-24",
+            "day_totals": {},
+            "has_estimated_entries": false,
+            "meals": [
+                {
+                    "meal_id": "\(UUID().uuidString)",
+                    "meal_name": "Breakfast",
+                    "is_skipped": false,
+                    "meal_totals": {},
+                    "entries": [
+                        {
+                            "id": "\(UUID().uuidString)",
+                            "food_name": "Chicken",
+                            "weight_g": "100",
+                            "weight_confidence": "measured",
+                            "input_method": "manual",
+                            "eaten_at": "2026-06-29T09:29:00",
+                            "nutrients": {}
+                        }
+                    ]
+                }
+            ]
+        }
+        """
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        decoder.dateDecodingStrategy = .custom(APIClient.decodeServerDate)
+        let dto = try decoder.decode(DiaryResponse.self, from: Data(json.utf8))
+
+        let eatenAt = try XCTUnwrap(dto.meals.first?.entries.first?.eatenAt)
+        XCTAssertEqual(eatenAt.timeIntervalSince1970, 1782725340, accuracy: 0.001)
     }
 
     func testFetchDiary404ReturnsEmptyDiaryDay() async throws {

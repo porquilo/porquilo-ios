@@ -148,6 +148,7 @@ struct TodayView: View {
             let diary = try await APIClient.shared.fetchDiary(for: displayedDate)
             loadState = .loaded(diary)
         } catch {
+            print("TodayView.loadDiary failed: \(error)")
             loadState = .failed
         }
     }
