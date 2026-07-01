@@ -109,7 +109,7 @@ struct QuantityView: View {
                 .foregroundStyle(DesignTokens.textPrimary)
                 .lineLimit(1)
                 .truncationMode(.tail)
-                .padding(.horizontal, 90)
+                .padding(.horizontal, 116)
 
             HStack {
                 Button(action: { step = .search }) {
