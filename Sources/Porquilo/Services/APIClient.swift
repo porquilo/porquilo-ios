@@ -82,6 +82,59 @@ extension PorquiloAPIError: Equatable {
     }
 }
 
+/// Mirrors `RecentFoodSuggestion` from `GET /api/foods/suggestions`.
+struct RecentFoodItem: Decodable {
+    let foodId: UUID
+    let foodName: String
+    let sourceKey: String
+    let sourceDisplay: String
+    let caloriesPer100g: Double
+    let lastLoggedAt: Date
+
+    enum CodingKeys: String, CodingKey {
+        case foodId = "food_id"
+        case foodName = "food_name"
+        case sourceKey = "source_key"
+        case sourceDisplay = "source_display"
+        case caloriesPer100g = "calories_per_100g"
+        case lastLoggedAt = "last_logged_at"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        foodId = try container.decode(UUID.self, forKey: .foodId)
+        foodName = try container.decode(String.self, forKey: .foodName)
+        sourceKey = try container.decode(String.self, forKey: .sourceKey)
+        sourceDisplay = try container.decode(String.self, forKey: .sourceDisplay)
+        caloriesPer100g = try container.decode(Double.self, forKey: .caloriesPer100g)
+        lastLoggedAt = try decodeServerDate(from: container.superDecoder(forKey: .lastLoggedAt))
+    }
+}
+
+/// Mirrors `FrequentFoodSuggestion` from `GET /api/foods/suggestions`.
+struct FrequentFoodItem: Decodable {
+    let foodId: UUID
+    let foodName: String
+    let sourceKey: String
+    let sourceDisplay: String
+    let caloriesPer100g: Double
+    let logCount: Int
+
+    enum CodingKeys: String, CodingKey {
+        case foodId = "food_id"
+        case foodName = "food_name"
+        case sourceKey = "source_key"
+        case sourceDisplay = "source_display"
+        case caloriesPer100g = "calories_per_100g"
+        case logCount = "log_count"
+    }
+}
+
+struct FoodSuggestionsResponse: Decodable {
+    let recent: [RecentFoodItem]
+    let frequent: [FrequentFoodItem]
+}
+
 @Observable
 final class APIClient {
     static let shared = APIClient()
@@ -416,6 +469,11 @@ final class APIClient {
         } catch {
             throw PorquiloAPIError.decodingError(error)
         }
+    }
+
+    /// `GET /api/foods/suggestions` — both arrays may be empty; never throws on empty.
+    func fetchFoodSuggestions() async throws -> FoodSuggestionsResponse {
+        try await request("api/foods/suggestions")
     }
 
     func fetchServerVersion() async throws -> String {

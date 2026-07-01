@@ -13,22 +13,34 @@ struct QuickLogSearchView: View {
     @State private var searchErrorMessage: String? = nil
     @FocusState private var isSearchFieldFocused: Bool
     @State private var searchTask: Task<Void, Never>?
+    @State private var suggestions: FoodSuggestionsResponse? = nil
+    @State private var isSuggestionsLoading = false
 
-    private static let recentSamples: [FoodSearchResult] = [
-        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 420], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Oat milk 1 cup", sourceName: "Pantry", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 49], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Greek yogurt plain", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 97], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Brown rice cooked", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 112], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Banana raw", sourceName: "USDA", subtitle: "Recently logged", nutrientsPer100g: ["calories_kcal": 89], isTopMatch: false),
-    ]
+    private var recentResults: [FoodSearchResult] {
+        (suggestions?.recent ?? []).map { item in
+            FoodSearchResult(
+                id: item.foodId,
+                name: item.foodName,
+                sourceName: item.sourceDisplay,
+                subtitle: "Recently logged",
+                nutrientsPer100g: ["calories_kcal": item.caloriesPer100g],
+                isTopMatch: false
+            )
+        }
+    }
 
-    private static let frequentSamples: [FoodSearchResult] = [
-        FoodSearchResult(id: UUID(), name: "Overnight oats", sourceName: "Pantry", subtitle: "47 times logged", nutrientsPer100g: ["calories_kcal": 420], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Oat milk", sourceName: "Pantry", subtitle: "31 times logged", nutrientsPer100g: ["calories_kcal": 49], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Eggs scrambled", sourceName: "Pantry", subtitle: "24 times logged", nutrientsPer100g: ["calories_kcal": 148], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Greek yogurt", sourceName: "Pantry", subtitle: "18 times logged", nutrientsPer100g: ["calories_kcal": 100], isTopMatch: false),
-        FoodSearchResult(id: UUID(), name: "Chicken salad wrap", sourceName: "Pantry", subtitle: "11 times logged", nutrientsPer100g: ["calories_kcal": 410], isTopMatch: false),
-    ]
+    private var frequentResults: [FoodSearchResult] {
+        (suggestions?.frequent ?? []).map { item in
+            FoodSearchResult(
+                id: item.foodId,
+                name: item.foodName,
+                sourceName: item.sourceDisplay,
+                subtitle: "\(item.logCount) times logged",
+                nutrientsPer100g: ["calories_kcal": item.caloriesPer100g],
+                isTopMatch: false
+            )
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -60,6 +72,11 @@ struct QuickLogSearchView: View {
         }
         .onChange(of: query) { _, newValue in
             scheduleSearch(for: newValue)
+        }
+        .task {
+            isSuggestionsLoading = true
+            suggestions = try? await APIClient.shared.fetchFoodSuggestions()
+            isSuggestionsLoading = false
         }
     }
 
@@ -173,14 +190,18 @@ struct QuickLogSearchView: View {
 
     private var emptyStateContent: some View {
         VStack(alignment: .leading, spacing: 20) {
-            VStack(alignment: .leading, spacing: 0) {
-                sectionLabel("RECENT")
-                resultList(Self.recentSamples)
+            if !isOffline, !recentResults.isEmpty {
+                VStack(alignment: .leading, spacing: 0) {
+                    sectionLabel("RECENT")
+                    resultList(recentResults)
+                }
             }
 
-            VStack(alignment: .leading, spacing: 0) {
-                sectionLabel("FREQUENT")
-                resultList(Self.frequentSamples)
+            if !isOffline, !frequentResults.isEmpty {
+                VStack(alignment: .leading, spacing: 0) {
+                    sectionLabel("FREQUENT")
+                    resultList(frequentResults)
+                }
             }
         }
     }
