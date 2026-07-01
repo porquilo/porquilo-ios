@@ -181,11 +181,12 @@ final class APIClient {
         let displayName: String?
         let source: String
         let nutrients: [String: String]
+        let variants: [FoodVariant]?
 
         enum CodingKeys: String, CodingKey {
             case id, name, brand
             case displayName = "display_name"
-            case source, nutrients
+            case source, nutrients, variants
         }
     }
 
@@ -214,11 +215,12 @@ final class APIClient {
         let displayName: String?
         let source: String
         let nutrients: [NutrientOutDTO]
+        let variants: [FoodVariant]?
 
         enum CodingKeys: String, CodingKey {
             case id, name, brand
             case displayName = "display_name"
-            case source, nutrients
+            case source, nutrients, variants
         }
     }
 
@@ -291,7 +293,8 @@ final class APIClient {
             sourceName: Self.displaySourceName(dto.source),
             subtitle: dto.brand ?? Self.displaySourceName(dto.source),
             nutrientsPer100g: dto.nutrients.compactMapValues(Double.init),
-            isTopMatch: isTopMatch
+            isTopMatch: isTopMatch,
+            variants: dto.variants ?? []
         )
     }
 
@@ -308,7 +311,8 @@ final class APIClient {
             sourceName: Self.displaySourceName(dto.source),
             subtitle: dto.brand ?? Self.displaySourceName(dto.source),
             nutrientsPer100g: nutrients,
-            isTopMatch: false
+            isTopMatch: false,
+            variants: dto.variants ?? []
         )
     }
 
@@ -395,6 +399,9 @@ final class APIClient {
         return dtos.map { Meal(id: $0.id, name: $0.name, sortOrder: $0.sortOrder, isDefault: $0.isDefault) }
     }
 
+    /// `weightSource` matches the server's `weight_source` enum (`scale`,
+    /// `quick_search`, `quick_barcode`, `ai_describe`, `ai_photo`) and drives
+    /// the Measured/Estimated confidence badge — see agents.md.
     @discardableResult
     func createLogEntry(
         foodId: UUID,

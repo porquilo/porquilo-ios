@@ -26,6 +26,7 @@
 		642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */; };
 		6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC2311B14CFE001E1925583C /* DateRounding.swift */; };
 		72F9500D8BED2456F7C90903 /* QuickLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */; };
+		730E6C0D358C4BDAC0468D5A /* FoodVariant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 772CC68A6255AEC8918A29D5 /* FoodVariant.swift */; };
 		7817ECEE53AB8370B6E9E2EA /* DiaryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */; };
 		7EE9E090F0171140A1B9D060 /* QRPairingPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53147222241CF2D5CFEE495E /* QRPairingPayload.swift */; };
 		8605B92DDDEC74ACA48C68B7 /* MacroBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */; };
@@ -98,6 +99,7 @@
 		6761B27EA60882DF4B12F464 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceTests.swift; sourceTree = "<group>"; };
 		76AD118B487776AF58236396 /* PorquiloTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloTabBar.swift; sourceTree = "<group>"; };
+		772CC68A6255AEC8918A29D5 /* FoodVariant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodVariant.swift; sourceTree = "<group>"; };
 		77533196A0685995D42FE858 /* QuickLogSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogSearchView.swift; sourceTree = "<group>"; };
 		78B7B074B1D421C56E6E2E21 /* VersionWarningSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionWarningSheet.swift; sourceTree = "<group>"; };
 		79768B5CD89429FAED3522DF /* BarcodeScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeScanView.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 				3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */,
 				FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */,
 				837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */,
+				772CC68A6255AEC8918A29D5 /* FoodVariant.swift */,
 				958E22A5D59556BA4B881B8E /* LogCandidate.swift */,
 				6761B27EA60882DF4B12F464 /* Meal.swift */,
 				2B4661E6F3BE7E92C9B2F985 /* User.swift */,
@@ -450,6 +453,7 @@
 				642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */,
 				7817ECEE53AB8370B6E9E2EA /* DiaryResponse.swift in Sources */,
 				485E6DE9D28CB8F69655B0BD /* FoodSearchResult.swift in Sources */,
+				730E6C0D358C4BDAC0468D5A /* FoodVariant.swift in Sources */,
 				B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */,
 				F84E3B0FE43CA9324CFAA174 /* LibraryView.swift in Sources */,
 				AB583BA4BC8BA502A2251B25 /* LogCandidate.swift in Sources */,
