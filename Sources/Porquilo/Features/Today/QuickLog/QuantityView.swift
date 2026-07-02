@@ -1,9 +1,10 @@
 import SwiftUI
 
-enum ServingMode: Equatable {
+enum ServingMode: Equatable, Hashable {
     case per100g
-    case wholeCup
+    case variant(FoodVariant)
     case wholeItem
+    case servings
     case custom
 }
 
@@ -20,7 +21,7 @@ struct QuantityView: View {
     private static let itemGrams: Double = 235
 
     @State private var servingMode: ServingMode
-    @State private var quantity: Double = 1.0
+    @State private var quantity: Double
     @State private var customText: String = ""
     @State private var eatenAt: Date = Date().roundedToNearest15Minutes()
     @State private var meals: [Meal]
@@ -37,6 +38,7 @@ struct QuantityView: View {
         self._step = step
         self.onLogged = onLogged
         self._servingMode = State(initialValue: candidate.origin == .barcode ? .wholeItem : .per100g)
+        self._quantity = State(initialValue: candidate.origin == .barcode ? 1.0 : 100.0)
         self._meals = State(initialValue: meals)
         self._selectedMeal = State(initialValue: Meal.inferredDefault(from: meals, at: Date()))
     }
@@ -78,6 +80,16 @@ struct QuantityView: View {
         .sheet(isPresented: $showMealPicker) {
             MealTimePickerSheet(meals: meals, selectedMeal: $selectedMeal, eatenAt: $eatenAt)
         }
+        .onChange(of: servingMode) { _, newMode in
+            switch newMode {
+            case .per100g:
+                quantity = 100
+            case .variant(let variant):
+                if let amount = variant.amount { quantity = amount }
+            case .wholeItem, .servings, .custom:
+                break
+            }
+        }
         .task {
             if meals.isEmpty {
                 meals = (try? await APIClient.shared.fetchMeals()) ?? []
@@ -97,7 +109,7 @@ struct QuantityView: View {
                 .foregroundStyle(DesignTokens.textPrimary)
                 .lineLimit(1)
                 .truncationMode(.tail)
-                .padding(.horizontal, 90)
+                .padding(.horizontal, 116)
 
             HStack {
                 Button(action: { step = .search }) {
@@ -180,23 +192,39 @@ struct QuantityView: View {
 
     // MARK: - Serving selector
 
-    private var servingModeOptions: [(mode: ServingMode, label: String)] {
-        if isBarcode {
-            return [(.wholeItem, "Whole item"), (.wholeCup, "Servings"), (.custom, "Custom g")]
+    /// "Per 100 g" and "Custom" bookend the food's named variants (if any).
+    /// Unnamed variants (no display label) are skipped.
+    private var textSearchServingModes: [ServingMode] {
+        let namedVariants = candidate.variants
+            .filter { $0.name != nil }
+            .map { ServingMode.variant($0) }
+        return [.per100g] + namedVariants + [.custom]
+    }
+
+    private var barcodeServingModes: [ServingMode] {
+        [.wholeItem, .servings, .custom]
+    }
+
+    private func servingModeLabel(_ mode: ServingMode) -> String {
+        switch mode {
+        case .per100g: return "Per 100 g"
+        case .variant(let variant): return variant.name ?? ""
+        case .wholeItem: return "Whole item"
+        case .servings: return "Servings"
+        case .custom: return isBarcode ? "Custom g" : "Custom"
         }
-        return [(.per100g, "Per 100 g"), (.wholeCup, "1 cup"), (.custom, "Custom")]
     }
 
     private var servingSelector: some View {
         HStack(spacing: 2) {
-            ForEach(servingModeOptions, id: \.mode) { option in
-                Button(action: { servingMode = option.mode }) {
-                    Text(option.label)
-                        .font(.system(size: 13, weight: servingMode == option.mode ? .semibold : .medium))
-                        .foregroundStyle(servingMode == option.mode ? DesignTokens.textPrimary : DesignTokens.textTertiary)
+            ForEach(isBarcode ? barcodeServingModes : textSearchServingModes, id: \.self) { mode in
+                Button(action: { servingMode = mode }) {
+                    Text(servingModeLabel(mode))
+                        .font(.system(size: 13, weight: servingMode == mode ? .semibold : .medium))
+                        .foregroundStyle(servingMode == mode ? DesignTokens.textPrimary : DesignTokens.textTertiary)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 8)
-                        .background(servingMode == option.mode ? DesignTokens.backgroundElevated : Color.clear)
+                        .background(servingMode == mode ? DesignTokens.backgroundElevated : Color.clear)
                         .applyShadow1()
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
@@ -212,7 +240,7 @@ struct QuantityView: View {
     @ViewBuilder
     private var quantityDisplay: some View {
         switch servingMode {
-        case .per100g, .wholeCup:
+        case .per100g, .variant, .servings:
             VStack(spacing: 4) {
                 Text(formattedQuantity)
                     .font(.custom("Geist Mono", size: 56))
@@ -294,7 +322,8 @@ struct QuantityView: View {
     private var unitLabel: String {
         switch servingMode {
         case .per100g: return "g"
-        case .wholeCup: return "cup · \(Int(Self.cupGrams)) ml"
+        case .variant(let variant): return variant.unit
+        case .servings: return "serving · \(Int(Self.cupGrams)) ml"
         case .wholeItem: return "item · \(Int(Self.itemGrams)) ml"
         case .custom: return "g"
         }
@@ -305,7 +334,8 @@ struct QuantityView: View {
     private var gramsEquivalent: Double {
         switch servingMode {
         case .per100g, .custom: return quantity
-        case .wholeCup: return quantity * Self.cupGrams
+        case .variant(let variant): return quantity * (variant.amount ?? 1)
+        case .servings: return quantity * Self.cupGrams
         case .wholeItem: return quantity * Self.itemGrams
         }
     }
@@ -463,7 +493,7 @@ struct QuantityView: View {
                     mealId: selectedMeal.id,
                     weightG: gramsEquivalent,
                     eatenAt: eatenAt,
-                    weightSource: "estimated",
+                    weightSource: candidate.weightSource,
                     inputMethod: isBarcode ? "quick_barcode" : "quick_log"
                 )
                 isSubmitting = false
