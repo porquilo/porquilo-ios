@@ -6,6 +6,11 @@ struct MealTimePickerSheet: View {
     @Binding var eatenAt: Date
     @Environment(\.dismiss) private var dismiss
 
+    @State private var isEditingTime: Bool = false
+    @State private var timeText: String = ""
+    @State private var timeFieldShakeOffset: CGFloat = 0
+    @FocusState private var isTimeFieldFocused: Bool
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Capsule()
@@ -57,7 +62,9 @@ struct MealTimePickerSheet: View {
         .padding(.horizontal, 20)
         .padding(.top, 12)
         .padding(.bottom, 24)
+        .background(DesignTokens.background)
         .presentationDetents([.medium, .large])
+        .presentationDragIndicator(.hidden)
     }
 
     private var mealChips: some View {
@@ -91,6 +98,17 @@ struct MealTimePickerSheet: View {
                         .clipShape(Circle())
                 }
             }
+            .padding(.horizontal, 20)
+        }
+        .padding(.horizontal, -20)
+        .overlay(alignment: .trailing) {
+            LinearGradient(
+                colors: [.clear, DesignTokens.background],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+            .frame(width: 32)
+            .allowsHitTesting(false)
         }
     }
 
@@ -104,15 +122,45 @@ struct MealTimePickerSheet: View {
                 Spacer()
 
                 VStack(spacing: 2) {
-                    Text(timeString)
-                        .font(.custom("Geist Mono", size: 44))
-                        .fontWeight(.medium)
-                        .tracking(-0.025 * 44)
-                        .foregroundStyle(DesignTokens.textPrimary)
-                        .monospacedDigit()
-                    Text(naturalLabel)
-                        .font(.system(size: 12))
-                        .foregroundStyle(DesignTokens.textTertiary)
+                    if isEditingTime {
+                        TextField("", text: $timeText)
+                            .font(.custom("Geist Mono", size: 44))
+                            .fontWeight(.medium)
+                            .tracking(-0.025 * 44)
+                            .foregroundStyle(DesignTokens.textPrimary)
+                            .monospacedDigit()
+                            .multilineTextAlignment(.center)
+                            .keyboardType(.numbersAndPunctuation)
+                            .focused($isTimeFieldFocused)
+                            .frame(width: 120)
+                            .offset(x: timeFieldShakeOffset)
+                            .onSubmit { commitTimeEdit() }
+                            .onAppear {
+                                timeText = formatTime(eatenAt)
+                                isTimeFieldFocused = true
+                            }
+
+                        Button("Cancel") {
+                            isEditingTime = false
+                            timeText = ""
+                            timeFieldShakeOffset = 0
+                        }
+                        .font(.system(size: 13))
+                        .foregroundStyle(DesignTokens.textMuted)
+                    } else {
+                        Text(formatTime(eatenAt))
+                            .font(.custom("Geist Mono", size: 44))
+                            .fontWeight(.medium)
+                            .tracking(-0.025 * 44)
+                            .foregroundStyle(DesignTokens.textPrimary)
+                            .monospacedDigit()
+                            .contentShape(Rectangle())
+                            .onTapGesture { isEditingTime = true }
+
+                        Text(naturalLabel)
+                            .font(.system(size: 12))
+                            .foregroundStyle(DesignTokens.textTertiary)
+                    }
                 }
 
                 Spacer()
@@ -167,10 +215,38 @@ struct MealTimePickerSheet: View {
         .buttonStyle(.plain)
     }
 
-    private var timeString: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "h:mm"
-        return formatter.string(from: eatenAt)
+    private func formatTime(_ date: Date) -> String {
+        let h = Calendar.current.component(.hour, from: date)
+        let m = Calendar.current.component(.minute, from: date)
+        return String(format: "%d:%02d", h, m)
+    }
+
+    private func commitTimeEdit() {
+        let parts = timeText.split(separator: ":").map(String.init)
+        guard parts.count == 2,
+              let h = Int(parts[0]), h >= 0, h <= 23,
+              let m = Int(parts[1]), m >= 0, m <= 59
+        else {
+            shakeTimeField()
+            return
+        }
+        var comps = Calendar.current.dateComponents([.year, .month, .day], from: eatenAt)
+        comps.hour = h
+        comps.minute = m
+        if let updated = Calendar.current.date(from: comps) {
+            eatenAt = updated
+        }
+        isEditingTime = false
+        timeText = ""
+    }
+
+    private func shakeTimeField() {
+        withAnimation(.easeInOut(duration: 0.06).repeatCount(4, autoreverses: true)) {
+            timeFieldShakeOffset = 8
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            timeFieldShakeOffset = 0
+        }
     }
 
     private var naturalLabel: String {

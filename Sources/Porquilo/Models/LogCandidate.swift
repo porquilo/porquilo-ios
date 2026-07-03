@@ -11,6 +11,17 @@ struct LogCandidate: Equatable {
     var sourceName: String
     var origin: Origin
     var result: FoodSearchResult
+
+    /// The food's named serving variants, may be empty.
+    var variants: [FoodVariant] { result.variants }
+
+    /// Matches the server's `weight_source` enum for Quick Log entries.
+    var weightSource: String {
+        switch origin {
+        case .search: return "quick_search"
+        case .barcode: return "quick_barcode"
+        }
+    }
 }
 
 extension LogCandidate {

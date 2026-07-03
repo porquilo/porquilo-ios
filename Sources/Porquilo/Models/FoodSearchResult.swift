@@ -8,6 +8,8 @@ struct FoodSearchResult: Identifiable, Equatable {
     /// Nutrient values per 100 g, keyed by server nutrient key (e.g. "calories_kcal").
     var nutrientsPer100g: [String: Double]
     var isTopMatch: Bool
+    /// Named serving variants (e.g. "1 slice", "1 tbsp"). May be empty.
+    var variants: [FoodVariant] = []
 
     var caloriesPer100g: Double { nutrientsPer100g["calories_kcal"] ?? 0 }
     var proteinPer100g: Double { nutrientsPer100g["protein_g"] ?? 0 }
