@@ -17,9 +17,11 @@
 		41C4558440CA40D201D1476F /* BarcodeNotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C626991C79F89C1838D15B /* BarcodeNotFoundView.swift */; };
 		41FB4E049F4CC6F842B47871 /* GeistMono[wght].ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC82133BF89E7DA3BA9D2861 /* GeistMono[wght].ttf */; };
 		485E6DE9D28CB8F69655B0BD /* FoodSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */; };
+		4AF2D323BD5C28E908386EAB /* FoodVariantTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A27428DFE6A8D3B18FAC4B84 /* FoodVariantTests.swift */; };
 		4C9DD78C8F25FD1C8AB8D953 /* MealSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A587DA34B27747093E4718D3 /* MealSectionView.swift */; };
 		4FA739F28DD977B33624FC03 /* QRCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E66B012D185F909A170385A3 /* QRCaptureCoordinator.swift */; };
 		50F5C3288509F59849601FBB /* QRErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A670CF4BF9F44522C99DCD /* QRErrorView.swift */; };
+		5494EF8B2B2EC7D67D8D9765 /* CreateCustomFoodValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86AFE8E959F6ECF3FCC4DDBD /* CreateCustomFoodValidationTests.swift */; };
 		54982FC8BA1E0F51A7394B82 /* PorquiloTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AD118B487776AF58236396 /* PorquiloTabBar.swift */; };
 		565CA93CA11DF5613CC737DF /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F94647827CBB4941F35984A /* CameraPreviewView.swift */; };
 		57C6533FB105E2590831CEE0 /* QuantityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31677157AD3284BDE4E84C01 /* QuantityView.swift */; };
@@ -35,6 +37,7 @@
 		8EBB22AA91E8BD9F97711AD1 /* MealTimePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */; };
 		8F9F6F49796085DBEAEB6F01 /* ReportsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1E8C27F0E915EA56301ABC /* ReportsView.swift */; };
 		911755E1655196AB4A24D5A9 /* PorquiloApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */; };
+		95FEFA58A48AD4103D48885D /* CreateCustomFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392A210BF2C266D500D0C51A /* CreateCustomFoodView.swift */; };
 		A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14CF78E2AD93367D537BBC4F /* ConnectToServerView.swift */; };
 		A3F71F9ABE163FAB4E1B64AA /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A9F4633F07B8AA914D47B6 /* MainTabView.swift */; };
 		A87920410E8F7E48087BA391 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DD1537F1B5ED000C3CAD66 /* SettingsView.swift */; };
@@ -43,8 +46,10 @@
 		AB583BA4BC8BA502A2251B25 /* LogCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E22A5D59556BA4B881B8E /* LogCandidate.swift */; };
 		B25040F8312FAFDFE772B319 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F1B2B913E422EB21C1DBA3 /* KeychainService.swift */; };
 		BD198627901C24ACCFD8D89D /* BarcodeScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79768B5CD89429FAED3522DF /* BarcodeScanView.swift */; };
+		BD2955AC75CD7C93FF3BDDDD /* CreateCustomFoodValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE2E2BA3D5768118E93CB37 /* CreateCustomFoodValidation.swift */; };
 		C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */; };
 		CB972F3582CB89DCEDD5B6E8 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5401332ADEB9D9422C6721D /* WelcomeView.swift */; };
+		CF325ADD47D84C98FBEB9917 /* CreateFoodAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFECCA7962E1B6A4E0C596AB /* CreateFoodAPITests.swift */; };
 		D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F3144B071E68F342CD9B05 /* DesignTokens.swift */; };
 		DBB8E1C4256EAB0DA35FE710 /* LogCandidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */; };
 		DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */; };
@@ -89,6 +94,7 @@
 		2B4661E6F3BE7E92C9B2F985 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2D5123A3A2FC5424513639BB /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		31677157AD3284BDE4E84C01 /* QuantityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityView.swift; sourceTree = "<group>"; };
+		392A210BF2C266D500D0C51A /* CreateCustomFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomFoodView.swift; sourceTree = "<group>"; };
 		3EE9DE3B3D645C63C5D7712C /* DiaryModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryModels.swift; sourceTree = "<group>"; };
 		4036A02656B05DBD4FAFAF98 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		4294D1F55BC12C18165CBFDF /* PorquiloTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PorquiloTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +112,7 @@
 		7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTimePickerSheet.swift; sourceTree = "<group>"; };
 		7C83EB1E805B86FDD13E0592 /* ManualEntryValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryValidation.swift; sourceTree = "<group>"; };
 		837C3964E1AE6FF182107FAA /* FoodSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodSearchResult.swift; sourceTree = "<group>"; };
+		86AFE8E959F6ECF3FCC4DDBD /* CreateCustomFoodValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomFoodValidationTests.swift; sourceTree = "<group>"; };
 		8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateTests.swift; sourceTree = "<group>"; };
 		918AEAD092391B9A0C5B926A /* AuthRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRootView.swift; sourceTree = "<group>"; };
 		92AF415AA75C5725B53FEB70 /* .gitkeep */ = {isa = PBXFileReference; path = .gitkeep; sourceTree = "<group>"; };
@@ -113,10 +120,12 @@
 		9769853ADDE945B17205A409 /* QRPairingPayloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRPairingPayloadTests.swift; sourceTree = "<group>"; };
 		9F8C6ACF43D88EDDB3F74A40 /* PorquiloApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PorquiloApp.swift; sourceTree = "<group>"; };
 		9F94647827CBB4941F35984A /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		A27428DFE6A8D3B18FAC4B84 /* FoodVariantTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodVariantTests.swift; sourceTree = "<group>"; };
 		A3983A8C8996AB1C7F5827A8 /* ManualEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualEntryView.swift; sourceTree = "<group>"; };
 		A587DA34B27747093E4718D3 /* MealSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealSectionView.swift; sourceTree = "<group>"; };
 		AB3F69FB02B8E3295CAD625A /* LogoMarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoMarkView.swift; sourceTree = "<group>"; };
 		AC22E14C3DE922F28281F1E9 /* MacroBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacroBarView.swift; sourceTree = "<group>"; };
+		AFECCA7962E1B6A4E0C596AB /* CreateFoodAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFoodAPITests.swift; sourceTree = "<group>"; };
 		B2F3144B071E68F342CD9B05 /* DesignTokens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignTokens.swift; sourceTree = "<group>"; };
 		B4C0AA51469CA96941A741E9 /* ConnectingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectingView.swift; sourceTree = "<group>"; };
 		BE757BA02003E34A7435ABF1 /* Porquilo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Porquilo.entitlements; sourceTree = "<group>"; };
@@ -137,6 +146,7 @@
 		FC2311B14CFE001E1925583C /* DateRounding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRounding.swift; sourceTree = "<group>"; };
 		FCE3CB6C70E6D5477333BBD3 /* QuickLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickLogView.swift; sourceTree = "<group>"; };
 		FEB19F0AB5C1227F9E0B7F48 /* DiaryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResponse.swift; sourceTree = "<group>"; };
+		FFE2E2BA3D5768118E93CB37 /* CreateCustomFoodValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCustomFoodValidation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -248,6 +258,8 @@
 			children = (
 				50C626991C79F89C1838D15B /* BarcodeNotFoundView.swift */,
 				79768B5CD89429FAED3522DF /* BarcodeScanView.swift */,
+				FFE2E2BA3D5768118E93CB37 /* CreateCustomFoodValidation.swift */,
+				392A210BF2C266D500D0C51A /* CreateCustomFoodView.swift */,
 				7B5061A6ACF112749731D1CE /* MealTimePickerSheet.swift */,
 				31677157AD3284BDE4E84C01 /* QuantityView.swift */,
 				77533196A0685995D42FE858 /* QuickLogSearchView.swift */,
@@ -284,7 +296,10 @@
 			children = (
 				ED9755E72682009A382F0050 /* APIClientTests.swift */,
 				8C9C7AC850D05B8F3A150247 /* AppStateTests.swift */,
+				86AFE8E959F6ECF3FCC4DDBD /* CreateCustomFoodValidationTests.swift */,
+				AFECCA7962E1B6A4E0C596AB /* CreateFoodAPITests.swift */,
 				F50A96AF4BA11AC7C352F576 /* CreateLogEntryTests.swift */,
+				A27428DFE6A8D3B18FAC4B84 /* FoodVariantTests.swift */,
 				71B3F66BEA0E18A070EC3E47 /* KeychainServiceTests.swift */,
 				ECC5511256CD7896C9CAF83F /* LogCandidateTests.swift */,
 				C19B6EAB8428A2ADCECE4C82 /* ManualEntryValidationTests.swift */,
@@ -448,6 +463,8 @@
 				A0A25B782E7DCDD32ADE6533 /* ConnectToServerView.swift in Sources */,
 				0E55265B670AEE66F3EF9026 /* ConnectingRequest.swift in Sources */,
 				E4F645439EAA76BABDCDCC65 /* ConnectingView.swift in Sources */,
+				BD2955AC75CD7C93FF3BDDDD /* CreateCustomFoodValidation.swift in Sources */,
+				95FEFA58A48AD4103D48885D /* CreateCustomFoodView.swift in Sources */,
 				6DAEDD9C2514CC18D9E0251A /* DateRounding.swift in Sources */,
 				D9F8471FA01EAED03C5B660E /* DesignTokens.swift in Sources */,
 				642A85BE16B8DCCCBE9C6F5B /* DiaryModels.swift in Sources */,
@@ -491,7 +508,10 @@
 			files = (
 				EDE9B3A0CFFCEF0F96A45530 /* APIClientTests.swift in Sources */,
 				C3A6A93F3D7C7AF2415AC047 /* AppStateTests.swift in Sources */,
+				5494EF8B2B2EC7D67D8D9765 /* CreateCustomFoodValidationTests.swift in Sources */,
+				CF325ADD47D84C98FBEB9917 /* CreateFoodAPITests.swift in Sources */,
 				ECA37ACC60CDB74C808400DA /* CreateLogEntryTests.swift in Sources */,
+				4AF2D323BD5C28E908386EAB /* FoodVariantTests.swift in Sources */,
 				DF91BA6559CE84B0FB4ECF43 /* KeychainServiceTests.swift in Sources */,
 				DBB8E1C4256EAB0DA35FE710 /* LogCandidateTests.swift in Sources */,
 				E8C24CBAE490490B60D14E61 /* ManualEntryValidationTests.swift in Sources */,

@@ -210,7 +210,7 @@ struct QuickLogSearchView: View {
         VStack(alignment: .leading, spacing: 14) {
             resultList(results)
 
-            Button(action: {}) {
+            Button(action: { step = .createCustomFood(.search(query: query)) }) {
                 HStack(spacing: 6) {
                     Image(systemName: "plus.circle")
                         .font(.system(size: 14, weight: .medium))

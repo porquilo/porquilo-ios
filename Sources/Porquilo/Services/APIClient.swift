@@ -153,6 +153,12 @@ final class APIClient {
         let error: Inner
     }
 
+    /// FastAPI's default shape for a raw `HTTPException` — not wrapped in the
+    /// standard `{"error": {...}}` envelope. See `serverError(from:)`.
+    private struct PlainDetailEnvelope: Decodable {
+        let detail: String
+    }
+
     private struct LoginRequestBody: Encodable {
         let username: String
         let password: String
@@ -320,6 +326,9 @@ final class APIClient {
         if let envelope = try? JSONDecoder().decode(ErrorEnvelope.self, from: data) {
             return .serverError(code: envelope.error.code, message: envelope.error.message)
         }
+        if let plain = try? JSONDecoder().decode(PlainDetailEnvelope.self, from: data) {
+            return .serverError(code: "request_failed", message: plain.detail)
+        }
         return .networkError(URLError(.badServerResponse))
     }
 
@@ -391,6 +400,60 @@ final class APIClient {
 
     func lookupBarcode(_ barcode: String) async throws -> FoodSearchResult {
         let dto: FoodOutDTO = try await request("api/foods/lookup/barcode/\(barcode)")
+        return Self.searchResult(from: dto)
+    }
+
+    private struct NutrientInBody: Encodable {
+        let nutrientKey: String
+        let valuePer100: Double
+
+        enum CodingKeys: String, CodingKey {
+            case nutrientKey = "nutrient_key"
+            case valuePer100 = "value_per_100"
+        }
+    }
+
+    private struct VariantInBody: Encodable {
+        let name: String
+        let amount: Double
+        let unit: String
+    }
+
+    private struct CreateFoodBody: Encodable {
+        let name: String
+        let brand: String?
+        let barcode: String?
+        let defaultUnit: String
+        let nutrients: [NutrientInBody]
+        let variants: [VariantInBody]
+
+        enum CodingKeys: String, CodingKey {
+            case name, brand, barcode
+            case defaultUnit = "default_unit"
+            case nutrients, variants
+        }
+    }
+
+    /// `POST /api/foods` — used by the Quick Log "create a custom food" flow
+    /// (barcode-not-found and search entry points). Returns the same `FoodOut`
+    /// shape `lookupBarcode` already decodes.
+    func createFood(
+        name: String,
+        brand: String?,
+        barcode: String?,
+        defaultUnit: String,
+        nutrients: [(key: String, value: Double)],
+        variants: [(name: String, amount: Double, unit: String)]
+    ) async throws -> FoodSearchResult {
+        let body = CreateFoodBody(
+            name: name,
+            brand: brand,
+            barcode: barcode,
+            defaultUnit: defaultUnit,
+            nutrients: nutrients.map { NutrientInBody(nutrientKey: $0.key, valuePer100: $0.value) },
+            variants: variants.map { VariantInBody(name: $0.name, amount: $0.amount, unit: $0.unit) }
+        )
+        let dto: FoodOutDTO = try await request("api/foods", method: "POST", body: body)
         return Self.searchResult(from: dto)
     }
 
