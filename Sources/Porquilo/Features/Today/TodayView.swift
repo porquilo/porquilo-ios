@@ -7,10 +7,13 @@ enum DiaryLoadState {
 }
 
 struct TodayView: View {
+    @Environment(AppState.self) private var appState
     @State private var displayedDate: Date = Date()
     @State private var showModePicker: Bool = false
     @State private var showQuickLog: Bool = false
     @State private var loadState: DiaryLoadState = .loading
+    @State private var editingEntry: DiaryLogEntry? = nil
+    @State private var pendingDeleteEntry: DiaryLogEntry? = nil
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -37,6 +40,38 @@ struct TodayView: View {
                 onLogged: { Task { await loadDiary() } }
             )
         }
+        .sheet(item: $editingEntry) { entry in
+            EditLogEntryView(
+                entry: entry,
+                onSaved: { editingEntry = nil; Task { await loadDiary() } },
+                onDeleted: { editingEntry = nil; Task { await loadDiary() } },
+                onDismiss: { editingEntry = nil }
+            )
+        }
+        .confirmationDialog(
+            "Delete entry?",
+            isPresented: Binding(
+                get: { pendingDeleteEntry != nil },
+                set: { if !$0 { pendingDeleteEntry = nil } }
+            ),
+            presenting: pendingDeleteEntry
+        ) { entry in
+            Button("Delete \(entry.foodName)", role: .destructive) {
+                Task {
+                    do {
+                        try await APIClient.shared.deleteLogEntry(id: entry.id)
+                        pendingDeleteEntry = nil
+                        await loadDiary()
+                    } catch PorquiloAPIError.unauthorized {
+                        pendingDeleteEntry = nil
+                        appState.signOut()
+                    } catch {
+                        pendingDeleteEntry = nil
+                    }
+                }
+            }
+            Button("Cancel", role: .cancel) { pendingDeleteEntry = nil }
+        }
     }
 
     @ViewBuilder
@@ -53,7 +88,12 @@ struct TodayView: View {
                     MacroBarView(total: diary.macroTotal)
 
                     ForEach(diary.meals) { section in
-                        MealSectionView(section: section, onAddFood: { showModePicker = true })
+                        MealSectionView(
+                            section: section,
+                            onAddFood: { showModePicker = true },
+                            onEntryEdit: { editingEntry = $0 },
+                            onEntryDelete: { pendingDeleteEntry = $0 }
+                        )
                     }
                 }
                 .padding(.horizontal, 16)
