@@ -34,7 +34,7 @@ struct BarcodeNotFoundView: View {
                         .multilineTextAlignment(.center)
                         .padding(.bottom, 36)
 
-                    Button(action: {}) {
+                    Button(action: { step = .createCustomFood(.barcode(barcode)) }) {
                         Text("Add this food")
                             .font(.system(size: 14, weight: .medium))
                             .foregroundStyle(DesignTokens.textOnAccent)
