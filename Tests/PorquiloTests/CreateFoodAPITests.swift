@@ -113,6 +113,47 @@ final class CreateFoodAPITests: XCTestCase {
         XCTAssertEqual(variants?.first?["unit"] as? String, "g")
     }
 
+    /// Regression test for the real server response shape: `POST /api/foods`
+    /// returns `FoodOut`, whose `variants` are `VariantOut` — no `id` field,
+    /// and `amount` serialized as a quoted decimal string, same as
+    /// `nutrients`. Confirmed against the live dev server: creating a food
+    /// with a variant decoded to `PorquiloAPIError.decodingError` before
+    /// `FoodVariant` grew a custom decoder, even though the food was already
+    /// committed server-side.
+    func testCreateFoodDecodesResponseVariantWithoutIdAndStringAmount() async throws {
+        StubURLProtocol.requestHandler = { request in
+            let json = """
+            {
+                "id": "\(UUID().uuidString)",
+                "name": "Rice",
+                "brand": "Jasmine",
+                "display_name": null,
+                "source": "custom",
+                "default_unit": "g",
+                "nutrients": [{"nutrient_key": "calories_kcal", "value_per_100": "100.0000000000"}],
+                "variants": [{"name": "1 cup", "amount": "400.0000000000", "unit": "g"}]
+            }
+            """
+            let data = Data(json.utf8)
+            let response = HTTPURLResponse(url: request.url!, statusCode: 201, httpVersion: nil, headerFields: nil)!
+            return (response, data)
+        }
+
+        let result = try await APIClient.shared.createFood(
+            name: "Rice",
+            brand: "Jasmine",
+            barcode: nil,
+            defaultUnit: "g",
+            nutrients: [("calories_kcal", 100)],
+            variants: [("1 cup", 400, "g")]
+        )
+
+        XCTAssertEqual(result.variants.count, 1)
+        XCTAssertEqual(result.variants.first?.name, "1 cup")
+        XCTAssertEqual(result.variants.first?.amount, 400)
+        XCTAssertEqual(result.variants.first?.unit, "g")
+    }
+
     func testServerErrorDecodesPlainDetailEnvelope() {
         let json = """
         {"detail": "Duplicate barcode or (source, source_id) combination"}
