@@ -10,6 +10,10 @@ struct DiaryLogEntryRowView: View {
 
     var body: some View {
         ZStack(alignment: .trailing) {
+            // A ZStack resolves its own size from the union of its children's ideal
+            // sizes, then re-proposes that resolved size back down — so `maxHeight:
+            // .infinity` here settles at rowContent's actual height instead of a
+            // fixed value (e.g. 44) that could exceed it and poke out above/below.
             Button(action: onDeleteRequested) {
                 VStack(spacing: 4) {
                     Image(systemName: "trash")
@@ -18,8 +22,10 @@ struct DiaryLogEntryRowView: View {
                         .font(.system(size: 11, weight: .semibold))
                 }
                 .foregroundStyle(.white)
-                .frame(width: deleteButtonWidth, height: 44)
+                .frame(width: deleteButtonWidth)
+                .frame(maxHeight: .infinity)
             }
+            .buttonStyle(.plain)
             .background(DesignTokens.dangerBackground)
             .clipShape(RoundedRectangle(cornerRadius: 10))
 
