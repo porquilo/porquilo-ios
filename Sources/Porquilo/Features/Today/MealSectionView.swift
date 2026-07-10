@@ -3,6 +3,8 @@ import SwiftUI
 struct MealSectionView: View {
     let section: MealSection
     let onAddFood: () -> Void
+    let onEntryEdit: (DiaryLogEntry) -> Void
+    let onEntryDelete: (DiaryLogEntry) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -42,7 +44,11 @@ struct MealSectionView: View {
                 }
             } else {
                 ForEach(section.entries) { entry in
-                    LogEntryRowView(entry: entry)
+                    DiaryLogEntryRowView(
+                        entry: entry,
+                        onEditRequested: { onEntryEdit(entry) },
+                        onDeleteRequested: { onEntryDelete(entry) }
+                    )
                 }
             }
         }

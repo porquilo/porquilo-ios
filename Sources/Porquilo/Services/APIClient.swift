@@ -283,6 +283,60 @@ final class APIClient {
         let nutrients: [String: NutrientValue]
     }
 
+    /// Mirrors `EntryDetailOut` from `GET /api/entries/{id}` — the only endpoint that
+    /// exposes the raw `weight_source` enum (`scale`, `quick_search`, `quick_barcode`,
+    /// `ai_describe`, `ai_photo`, `recipe_derived`). `GET /api/diary/{date}` only carries
+    /// the server-derived `weight_confidence` ("measured"/"estimated"), which conflates
+    /// `scale` and `recipe_derived` into "measured" — not enough to decide whether an
+    /// edit should demote the entry, so `EditLogEntryView` fetches this on open.
+    private struct EntryDetailDTO: Decodable {
+        let weightG: String
+        let weightSource: String
+        let eatenAt: Date
+
+        enum CodingKeys: String, CodingKey {
+            case weightG = "weight_g"
+            case weightSource = "weight_source"
+            case eatenAt = "eaten_at"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            weightG = try container.decode(String.self, forKey: .weightG)
+            weightSource = try container.decode(String.self, forKey: .weightSource)
+            eatenAt = try decodeServerDate(from: container.superDecoder(forKey: .eatenAt))
+        }
+    }
+
+    struct LogEntryDetail {
+        let quantityG: Double
+        let eatenAt: Date
+        let weightSource: String
+    }
+
+    /// PATCH body for `/api/entries/{id}` — mirrors the server's `EntryPatch`, which
+    /// keys the weight field `weight_g` (not `quantity_g`). `weightSource` is only
+    /// encoded when non-nil, since sending it unconditionally would overwrite the
+    /// server's existing value even when the caller isn't demoting the entry.
+    private struct UpdateLogEntryBody: Encodable {
+        let weightG: Double
+        let eatenAt: Date
+        let weightSource: String?
+
+        enum CodingKeys: String, CodingKey {
+            case weightG = "weight_g"
+            case eatenAt = "eaten_at"
+            case weightSource = "weight_source"
+        }
+
+        func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(weightG, forKey: .weightG)
+            try container.encode(ISO8601DateFormatter().string(from: eatenAt), forKey: .eatenAt)
+            try container.encodeIfPresent(weightSource, forKey: .weightSource)
+        }
+    }
+
     private static func displaySourceName(_ source: String) -> String {
         switch source {
         case "usda": return "USDA"
@@ -348,6 +402,26 @@ final class APIClient {
             authToken: KeychainService.load()
         )
         return try await Self.perform(request)
+    }
+
+    /// Same as `request(_:method:body:)` but for endpoints with no response body
+    /// worth decoding (204 No Content, or a body the caller doesn't need).
+    private func requestVoid(
+        _ path: String,
+        method: String = "GET",
+        body: (any Encodable)? = nil
+    ) async throws {
+        guard let baseURL else { throw PorquiloAPIError.noServerConfigured }
+        guard let url = Self.buildURL(baseURL: baseURL, path: path) else {
+            throw PorquiloAPIError.noServerConfigured
+        }
+        let request = Self.buildRequest(
+            url: url,
+            method: method,
+            body: body,
+            authToken: KeychainService.load()
+        )
+        try await Self.performVoid(request)
     }
 
     /// `appendingPathComponent` percent-encodes the entire string it's given as a
@@ -485,6 +559,27 @@ final class APIClient {
         return try await request("api/entries", method: "POST", body: body)
     }
 
+    /// `GET /api/entries/{id}` — fetches the authoritative `weight_source` for an
+    /// entry (not available on the diary list), used by `EditLogEntryView` to decide
+    /// whether an edit should demote the entry to Estimated.
+    func fetchLogEntry(id: UUID) async throws -> LogEntryDetail {
+        let dto: EntryDetailDTO = try await request("api/entries/\(id.uuidString)")
+        return LogEntryDetail(quantityG: Double(dto.weightG) ?? 0, eatenAt: dto.eatenAt, weightSource: dto.weightSource)
+    }
+
+    /// `PATCH /api/entries/{id}`. `weightSource` is only sent when demoting an entry
+    /// from Measured to Estimated — omit it (pass `nil`) to leave the server's value
+    /// untouched.
+    func updateLogEntry(id: UUID, quantityG: Double, eatenAt: Date, weightSource: String?) async throws {
+        let body = UpdateLogEntryBody(weightG: quantityG, eatenAt: eatenAt, weightSource: weightSource)
+        try await requestVoid("api/entries/\(id.uuidString)", method: "PATCH", body: body)
+    }
+
+    /// `DELETE /api/entries/{id}` — 204 No Content on success.
+    func deleteLogEntry(id: UUID) async throws {
+        try await requestVoid("api/entries/\(id.uuidString)", method: "DELETE")
+    }
+
     /// `GET /api/diary/{date}` — `date` is formatted "YYYY-MM-DD" in the user's
     /// current calendar. 404 means an empty diary day, not an error.
     func fetchDiary(for date: Date) async throws -> DiaryDay {
@@ -608,6 +703,34 @@ final class APIClient {
             return try JSONDecoder().decode(T.self, from: data)
         } catch {
             throw PorquiloAPIError.decodingError(error)
+        }
+    }
+
+    /// Same status-code handling as `perform(_:)` without decoding a response body —
+    /// for endpoints like `DELETE` that return 204 No Content.
+    private static func performVoid(_ request: URLRequest) async throws {
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            throw PorquiloAPIError.networkError(error)
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw PorquiloAPIError.networkError(URLError(.badServerResponse))
+        }
+
+        if httpResponse.statusCode == 401 {
+            throw PorquiloAPIError.unauthorized
+        }
+
+        if httpResponse.statusCode == 404 {
+            throw PorquiloAPIError.notFound
+        }
+
+        if !(200..<300).contains(httpResponse.statusCode) {
+            throw serverError(from: data)
         }
     }
 }

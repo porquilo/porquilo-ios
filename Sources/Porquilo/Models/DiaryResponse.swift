@@ -54,7 +54,9 @@ extension DiaryResponse {
                     timeString: timeFormatter.string(from: entry.eatenAt),
                     weightG: entry.weightG.flatMap(Double.init),
                     calories: entry.nutrients["calories_kcal"].flatMap { Double($0.value) } ?? 0,
-                    isEstimated: entry.weightConfidence != "measured"
+                    isEstimated: entry.weightConfidence != "measured",
+                    quantityG: entry.weightG.flatMap(Double.init) ?? 0,
+                    eatenAt: entry.eatenAt
                 )
             }
             return MealSection(id: meal.mealId, name: meal.mealName, entries: entries)

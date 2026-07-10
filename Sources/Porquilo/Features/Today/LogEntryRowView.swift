@@ -1,9 +1,54 @@
 import SwiftUI
 
-struct LogEntryRowView: View {
+struct DiaryLogEntryRowView: View {
     let entry: DiaryLogEntry
+    let onEditRequested: () -> Void
+    let onDeleteRequested: () -> Void
+
+    @State private var dragOffset: CGFloat = 0
+    private let deleteButtonWidth: CGFloat = 76
 
     var body: some View {
+        ZStack(alignment: .trailing) {
+            Button(action: onDeleteRequested) {
+                VStack(spacing: 4) {
+                    Image(systemName: "trash")
+                        .font(.system(size: 16))
+                    Text("Delete")
+                        .font(.system(size: 11, weight: .semibold))
+                }
+                .foregroundStyle(.white)
+                .frame(width: deleteButtonWidth, height: 44)
+            }
+            .background(DesignTokens.dangerBackground)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+
+            rowContent
+                .offset(x: dragOffset)
+                .gesture(
+                    DragGesture(minimumDistance: 10)
+                        .onChanged { value in
+                            guard value.translation.width < 0 else { dragOffset = 0; return }
+                            dragOffset = max(value.translation.width, -deleteButtonWidth)
+                        }
+                        .onEnded { value in
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                dragOffset = value.translation.width < -deleteButtonWidth / 2
+                                    ? -deleteButtonWidth : 0
+                            }
+                        }
+                )
+                .onTapGesture {
+                    if dragOffset != 0 {
+                        withAnimation { dragOffset = 0 }
+                    } else {
+                        onEditRequested()
+                    }
+                }
+        }
+    }
+
+    private var rowContent: some View {
         HStack(alignment: .center, spacing: 8) {
             Text(entry.timeString)
                 .font(.custom("Geist Mono", size: 11))

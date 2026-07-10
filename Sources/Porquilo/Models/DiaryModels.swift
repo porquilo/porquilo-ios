@@ -15,6 +15,12 @@ struct DiaryLogEntry: Identifiable {
     var weightG: Double?
     var calories: Double
     var isEstimated: Bool
+    /// Editable seed value for `EditLogEntryView`'s quantity field — `weightG ?? 0`.
+    /// The view re-fetches the authoritative value from `GET /api/entries/{id}` on
+    /// open, since this list doesn't carry the raw `weight_source` needed to decide
+    /// whether an edit should demote the entry (see `APIClient.fetchLogEntry`).
+    var quantityG: Double
+    var eatenAt: Date
 }
 
 enum MealSlot: String, CaseIterable {
@@ -58,11 +64,13 @@ struct DiaryDay {
         meals: [
             MealSection(id: UUID(), name: "Breakfast", entries: [
                 DiaryLogEntry(id: UUID(), foodName: "Overnight oats", timeString: "7:30",
-                              weightG: 385, calories: 420, isEstimated: true),
+                              weightG: 385, calories: 420, isEstimated: true,
+                              quantityG: 385, eatenAt: Date()),
             ]),
             MealSection(id: UUID(), name: "Lunch", entries: [
                 DiaryLogEntry(id: UUID(), foodName: "Chicken salad wrap", timeString: "12:45",
-                              weightG: 280, calories: 410, isEstimated: true),
+                              weightG: 280, calories: 410, isEstimated: true,
+                              quantityG: 280, eatenAt: Date()),
             ]),
             MealSection(id: UUID(), name: "Dinner", entries: []),
         ]
